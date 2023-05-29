@@ -83,7 +83,8 @@ stages:          # List of stages for jobs, and their order of execution
 deploy:
   stage: deploy
   script:
-      - echo hi
+      - echo bye
+
       # - cd ~/lgl/
       # - source bin/activate
       # - cd appVer1/
