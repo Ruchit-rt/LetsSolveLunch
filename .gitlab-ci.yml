@@ -85,7 +85,7 @@ deploy:
   script:
       - echo bye
 
-      # - cd ~/lgl/
-      # - source bin/activate
-      # - cd appVer1/
-      # - python3 manage.py runserver 9000
+      - cd ~/lgl/
+      - source bin/activate
+      - cd letssolvelunch/
+      - python3 manage.py runserver 9000
