@@ -82,8 +82,9 @@ stages:          # List of stages for jobs, and their order of execution
 
 deploy:
   stage: deploy
-  script: 
-      - cd ~/lgl/
-      - source bin/activate
-      - cd appVer1/
-      - python3 manage.py runserver 9000
+  script:
+      - echo hi
+      # - cd ~/lgl/
+      # - source bin/activate
+      # - cd appVer1/
+      # - python3 manage.py runserver 9000
