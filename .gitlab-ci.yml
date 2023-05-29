@@ -87,4 +87,3 @@ deploy:
       - source bin/activate
       - cd appVer1/
       - python3 manage.py runserver 9000
-  environment: production
