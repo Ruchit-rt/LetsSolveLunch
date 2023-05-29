@@ -29,11 +29,6 @@
 # Note that when using a service in GitLab CI/CD that needs environment variables to run, only variables defined in
 # .gitlab-ci.yml are passed to the service and variables defined in the GitLab UI are not.
 # https://gitlab.com/gitlab-org/gitlab/-/issues/30178
-
-stages:          # List of stages for jobs, and their order of execution
-  - deploy
-
-
 # variables:
 #   # DJANGO_CONFIG: "test"
 #   MYSQL_DATABASE: $MYSQL_DB
@@ -80,13 +75,20 @@ stages:          # List of stages for jobs, and their order of execution
 #     # use python3 explicitly. see https://wiki.ubuntu.com/Python/3
 #     - python3 manage.py test
 
-deploy:
-  stage: deploy
-  script:
-      - echo bye
+stages:
+  - setup
+  - test
 
+
+setup:
+  stage: setup
+  script:
       - cd ~/lgl/
       - source bin/activate
       - cd letssolvelunch/
       - pip install -r requirements.txt
-      - python3 manage.py tests
+
+test:
+  stage: test
+  script:
+      - python3 manage.py test
