@@ -89,4 +89,4 @@ deploy:
       - source bin/activate
       - cd letssolvelunch/
       - pip install -r requirements.txt
-      - python3 manage.py runserver 9000
+      - python3 manage.py tests
