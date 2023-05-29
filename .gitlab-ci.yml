@@ -84,6 +84,7 @@ deploy:
   stage: deploy
   script:
       - echo bye
+      - docker compose up
 
       # - cd ~/lgl/
       # - source bin/activate
