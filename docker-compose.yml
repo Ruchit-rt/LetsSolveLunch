@@ -1,0 +1,7 @@
+services:
+    web:
+        build: .
+        ports:
+            - "9000:5000"
+    redis:
+        image: "python:3.6"
