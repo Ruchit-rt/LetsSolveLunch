@@ -3,7 +3,7 @@
 # maven base image
 FROM python:3.9-buster
 
-CMD echo hi____++++from_+++++Docker
+CMD python3 manage.py runserver 9000
 
 # WORKDIR /app
 # COPY . /app/
