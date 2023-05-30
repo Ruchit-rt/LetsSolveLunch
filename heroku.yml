@@ -2,6 +2,3 @@
 build:
   docker:
     web: Dockerfile # path to your Dockerfile
-
-run:
-  web: python3 manage.py runserver 0.0.0.0:\$PORT
