@@ -3,7 +3,7 @@
 # maven base image
 FROM python:3.9-buster
 
-CMD python3 manage.py runserver 9000
+CMD python3 manage.py runserver $PORT
 
 # WORKDIR /app
 # COPY . /app/
