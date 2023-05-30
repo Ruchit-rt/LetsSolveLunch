@@ -2,10 +2,3 @@
 build:
   docker:
     web: Dockerfile # path to your Dockerfile
-
-# release:
-#   image: web
-#   command:
-#     - echo 'Starting server after deployment!';
-#     - docker build -t web:latest .
-#     - docker run -d --name django-heroku -e "PORT=8765" -e "DEBUG=1" -p $PORT:8765 web:latest
