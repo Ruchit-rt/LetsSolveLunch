@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Meal
+from models import Meal
 from django.core.handlers.wsgi import WSGIRequest
 from io import StringIO
 from django.http import QueryDict
