@@ -92,6 +92,7 @@ setup:
 test:
   stage: test
   script:
+      - pwd
       - python3 manage.py test
 
 publicDeploy:
