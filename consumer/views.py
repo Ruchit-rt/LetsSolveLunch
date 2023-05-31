@@ -1,10 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from main.models import Meal
-from django.views.decorators.csrf import csrf_exempt
 import json
 import os
-
 
 def media_view(request):
     file_name = os.path.join("media", request.GET.get('img'))
@@ -17,13 +15,10 @@ def home_view(request):
     }
     return render(request, 'home.html', context)
 
-@csrf_exempt
 def reserve_view(request):
     if request.method == 'POST':
         try:    
-            data = json.loads(request.body)
-
-            record = Meal.objects.get(meal_id=data['meal_id'])
+            record = Meal.objects.get(meal_id = request.POST.get('mealid'))
             record.number_of_reservations += 1
             record.save()
             return JsonResponse({"message" : "Reserve Successful"}, status=200)

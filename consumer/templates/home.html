@@ -6,26 +6,13 @@
     {% for meal in  meals %}
         <li>{{ meal.name }}, {{ meal.description }}, {{ meal.price_staff }}</li>
         <img src="media?img={{ meal.photo_url }}">
-        <form id="reserve{{ meal.meal_id }}" type="post">
+        <form action="reserve/" id="reserve{{ meal.meal_id }}" method="POST">
             {% csrf_token %}
-            <button type="submit" onclick="increment({{ meal.meal_id }})">
+            <button name="mealid" value="{{ meal.meal_id }}" type="submit">
                 reserve
             </button>
         </form>
     {% endfor %}
     </ul>
-
-    <script>
-        function increment(meal_id) {
-            fetch("reserve/"
-                , {
-                    method: "POST",
-                    body: JSON.stringify({"meal_id" : meal_id, })
-                }
-            );
-        }
-    </script>
-
-
 </body>
 </html>
