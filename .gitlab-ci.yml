@@ -98,6 +98,3 @@ publicDeploy:
   stage: publicDeploy    # deploy to heroku
   script:
     - dpl --provider=heroku --app=lsl-public --api-key=653d2099-9cfc-4003-96a0-bfb3186749a4
-
-
-    

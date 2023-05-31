@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from main.models import Meal
+from django.core.handlers.wsgi import WSGIRequest
 import json
 import os
 
@@ -15,10 +16,10 @@ def home_view(request):
     }
     return render(request, 'home.html', context)
 
-def reserve_view(request):
+def reserve_view(request : WSGIRequest):
     if request.method == 'POST':
         try:    
-            record = Meal.objects.get(meal_id = request.POST.get('mealid'))
+            record = Meal.objects.get(meal_id = request.POST.get('meal_id'))
             record.number_of_reservations += 1
             record.save()
             return render(request, 'reservesucess.html', {"meal": record})

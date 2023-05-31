@@ -8,7 +8,7 @@
         <img src="media?img={{ meal.photo_url }}">
         <form action="reserve/" id="reserve{{ meal.meal_id }}" method="POST">
             {% csrf_token %}
-            <button name="mealid" value="{{ meal.meal_id }}" type="submit">
+            <button name="meal_id" value="{{ meal.meal_id }}" type="submit">
                 reserve
             </button>
         </form>
