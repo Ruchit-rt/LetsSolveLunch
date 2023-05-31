@@ -21,7 +21,7 @@ def reserve_view(request):
             record = Meal.objects.get(meal_id = request.POST.get('mealid'))
             record.number_of_reservations += 1
             record.save()
-            return JsonResponse({"message" : "Reserve Successful"}, status=200)
+            return render(request, 'reservesucess.html', {"meal": record})
         except json.JSONDecodeError:
             return JsonResponse({"message" : "Reserve Unsuccessful"}, status=505)
 
