@@ -84,15 +84,13 @@ stages:
 setup:
   stage: setup
   script:
-      - cd ~/lgl/
-      - source bin/activate
-      - cd letssolvelunch/
+      - source ~/lgl/bin/activate
       - pip install -r requirements.txt
 
 test:
   stage: test
   script:
-      - pwd
+      - source ~/lgl/bin/activate
       - python3 manage.py test
 
 publicDeploy:
