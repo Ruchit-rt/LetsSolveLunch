@@ -21,7 +21,16 @@ class MealCreationTestCase(TestCase):
         meal : Meal = Meal.objects.get(name="Choc Croissant Brunch")
         self.assertEqual(meal.description, "Chocolate Ganche sprinkle croissant with black americano")
 
-class MealReservationTestCase(MealCreationTestCase):
+class MealReservationTestCase(TestCase):
+    def setUp(self):
+        Meal.objects.create(name = "Choc Croissant Brunch",
+        description = "Chocolate Ganche sprinkle croissant with black americano",
+        photo_url = "croissantCoffee.jpg",
+        number_of_reservations = 3,
+        price_staff = 4.99,
+        price_student = 3.99
+        )
+
     def test_reserve_button_press_increases_count(self):
         """Make a meal"""
         meal : Meal = Meal.objects.get(name="Choc Croissant Brunch")
