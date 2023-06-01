@@ -10,7 +10,7 @@ class MealCreationTestCase(TestCase):
     def setUp(self):
         Meal.objects.create(name = "Choc Croissant Brunch",
         description = "Chocolate Ganche sprinkle croissant with black americano",
-        photo_url = "croissantCoffee.jpg",
+        picture = "croissantCoffee.jpg",
         number_of_reservations = 3,
         price_staff = 4.99,
         price_student = 3.99
