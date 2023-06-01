@@ -11,6 +11,9 @@ STATIC_URL = os.path.join(BASE_DIR, "static/")
 
 # )
 
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -18,7 +21,8 @@ STATIC_URL = os.path.join(BASE_DIR, "static/")
 SECRET_KEY = os.environ.get('SECRET_KEY', default='foo')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG', default=1))
+# DEBUG = int(os.environ.get('DEBUG', default=1))
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -125,5 +129,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-MEDIA_URL  = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
