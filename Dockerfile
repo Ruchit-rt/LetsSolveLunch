@@ -18,5 +18,7 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . .
 
+# collecting static
+RUN python3 manage.py collectstatic
 # run gunicorn
 CMD gunicorn drp.wsgi:application --bind 0.0.0.0:$PORT
