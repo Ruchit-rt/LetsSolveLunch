@@ -8,7 +8,7 @@ WORKDIR /app
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV DEBUG 1
+ENV DEBUG 0
 
 # install dependencies
 COPY ./requirements.txt .
