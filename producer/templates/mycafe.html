@@ -2,7 +2,9 @@
 <head>
 </head>
 <body>
-<h1> {{ num_reservations }} </h1>
+{% for meal in items %}
+    <h1> {{ meal.name }} has {{ meal.number_of_reservations }} reservations. </h1>
+{% endfor %}
 <br>
 <a href="../../">Log out</a>
 </body>

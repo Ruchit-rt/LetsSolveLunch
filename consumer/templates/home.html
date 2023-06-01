@@ -5,7 +5,9 @@
     <ul>
     {% for meal in  meals %}
         <li>{{ meal.name }}, {{ meal.description }}, {{ meal.price_staff }}</li>
-        <img src="media?img={{ meal.photo_url }}">
+        {% if meal.picture %}
+        <img src="{{ meal.picture.url }}">
+        {% endif %}
         <form action="reserve/" id="reserve{{ meal.meal_id }}" method="POST">
             {% csrf_token %}
             <button name="meal_id" value="{{ meal.meal_id }}" type="submit">
