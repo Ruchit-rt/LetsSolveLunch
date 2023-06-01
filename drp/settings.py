@@ -55,6 +55,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://lsl-public.herokuapp.com'
+]
+
 ROOT_URLCONF = 'drp.urls'
 
 TEMPLATES = [
