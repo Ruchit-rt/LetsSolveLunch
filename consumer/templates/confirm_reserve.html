@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Confirmation</title>
+    </head>
+    <body>
+        <h1>Confirm reservation?</h1>
+        <p>Are you sure you want to reserve {{ meal_name }} at {{ meal_location }}?</p>
+        <div> 
+            <form action="../reserve_success/" id="reserve{{ meal_id }}" method="POST">
+                {% csrf_token %}
+                <button name="meal_id" value="{{ meal_id }}" type="submit">
+                    Yes
+                </button>
+            </form>
+            <a href="../">
+                <button> No </button>
+            </a>
+        </div>
+
+        
+
+    </body>
+</html>

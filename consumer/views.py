@@ -16,13 +16,24 @@ def home_view(request):
     }
     return render(request, 'home.html', context)
 
-def reserve_view(request : WSGIRequest):
+def reserve_success_view(request : WSGIRequest):
     if request.method == 'POST':
         try:    
             record = Meal.objects.get(meal_id = request.POST.get('meal_id'))
             record.number_of_reservations += 1
             record.save()
-            return render(request, 'reservesucess.html', {"meal": record})
+            return render(request, 'reserve_success.html', {"meal": record})
+        except json.JSONDecodeError:
+            return JsonResponse({"message" : "Reserve Unsuccessful"}, status=505)
+
+    return JsonResponse({"message" : "Invalid Request Method"}, status=400) 
+
+def confirm_reserve_view(request : WSGIRequest):
+    if request.method == 'GET':
+        try:    
+            meal : Meal = Meal.objects.get(meal_id = request.GET.get('meal_id'))
+            return render(request, 'confirm_reserve.html', 
+            {"meal_id" : meal.meal_id, "meal_name": meal.name, "meal_location" : "SCR"})
         except json.JSONDecodeError:
             return JsonResponse({"message" : "Reserve Unsuccessful"}, status=505)
 
