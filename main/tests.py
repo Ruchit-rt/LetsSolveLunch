@@ -3,7 +3,7 @@ from main.models import Meal
 from django.core.handlers.wsgi import WSGIRequest
 from io import StringIO
 from django.http import QueryDict
-from consumer.views import reserve_view
+from consumer.views import reserve_success_view
 
 # Create your tests here.
 class MealCreationTestCase(TestCase):
@@ -36,6 +36,6 @@ class MealReservationTestCase(MealCreationTestCase):
         request.POST['meal_id'] = str(meal.meal_id)
 
         """reserve a meal"""
-        reserve_view(request)
+        reserve_success_view(request)
 
         self.assertEqual(Meal.objects.get(name="Choc Croissant Brunch").number_of_reservations, (old_count + 1))
