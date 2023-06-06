@@ -6,6 +6,14 @@
         <h1>Order Confirmed</h1>
         <p>Your order number is #{{order_no}}. 
             Remember to use this code during checkout. </p>
+        <form action='emailsent/' method="POST">
+            {% csrf_token %}
+        <button type="submit" name="submit" value="{{order_no}}"
+             class="btn btn-primary" id="submit-id-update">Get Email Confirmation</button>
+        </form>
+        <br>
+        <br>
+
         <a href="../../home/"><button>OK</button></a>
     </body>
 </html>
