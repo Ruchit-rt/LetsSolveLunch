@@ -33,6 +33,7 @@ def reserve_success_view(request : WSGIRequest):
 
             # Make Reservation
             customer_email = request.session['user_email']
+            print(request.session['user_email'])
             customer = Customer.objects.get(email=customer_email)
             reservation : Reservation = Reservation(meal=meal, customer=customer)
             reservation.save()
@@ -61,8 +62,6 @@ def myaccount_view(request : WSGIRequest):
     customer : Customer = Customer.objects.get(email=user_email)
     reservations = Reservation.objects.filter(customer=customer)
     context = dict()
-
-    context["lol"]  = "lol"
 
     if (len(reservations) > 0):
         reservation : Reservation = reservations.first() 
