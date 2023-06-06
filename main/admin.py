@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import Meal
+from .models import Meal, Reservation
 
 admin.site.register(Meal)
-
-# Register your models here.
+admin.site.register(Reservation)

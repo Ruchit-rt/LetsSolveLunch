@@ -8,12 +8,10 @@
         {% if meal.picture %}
         <img src="{{ meal.picture.url }}">
         {% endif %}
-        <form action="reserve/" id="reserve{{ meal.meal_id }}" method="POST">
-            {% csrf_token %}
-            <button name="meal_id" value="{{ meal.meal_id }}" type="submit">
-                reserve
-            </button>
-        </form>
+        <br>
+        <a href="../home/confirm_reserve?meal_id={{meal.meal_id}}">
+        <button>Reserve Meal</button>
+        </a>
     {% endfor %}
     </ul>
     <br>

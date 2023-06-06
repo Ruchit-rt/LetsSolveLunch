@@ -1,0 +1,34 @@
+<html>
+<head>
+    <link rel="stylesheet" href="checkout.css">
+    <title>Customer checkout</title>
+</head>
+<body>
+
+<form action="../checkout_result/" method="POST">
+{% csrf_token %}
+<div class="form__group">
+    <input type="number" name="order_no" class="form__field" placeholder="Order Number">
+</div>
+<br>
+<button type="submit">Submit</button>
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div>
+    <a>Menu</a> &nbsp; &nbsp; &nbsp;
+    <b>Checkout</b> &nbsp; &nbsp; &nbsp;
+    <a href="../mycafe">My Cafe</a>
+</div>
+
+
+</body>
+</html>
