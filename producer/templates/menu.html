@@ -1,0 +1,20 @@
+
+<center>
+    <h1> Add menu to database </h1>
+    <br/><br/>
+    
+    {% if submitted %}
+    
+    Your Menu was Submitted Successfully
+    
+    {% else %}
+    
+    <form action = "" method = POST 
+    enctype = "multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Submit">
+    </form>
+
+    {% endif %}
+</center>
