@@ -1,5 +1,5 @@
+from datetime import datetime
 from pyexpat import model
-from statistics import mode
 from django.db import models
 
 # all models for LetsSolveLunch
@@ -14,6 +14,7 @@ class Meal(models.Model):
 
 class Reservation(models.Model):
     order_no    = models.BigAutoField(primary_key = True)
-    time        = models.TimeField(auto_now_add=True)
+    datetime    = models.DateTimeField(auto_now_add=True)
     meal        = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    collected   = models.BooleanField(default=False)
     
