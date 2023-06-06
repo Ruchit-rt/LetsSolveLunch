@@ -11,6 +11,13 @@ def mycafe_view(request):
     context['items'] = [{"name": meal.name, "number_of_reservations": meal.number_of_reservations} for meal in Meal.objects.all()]
     return render(request, 'mycafe.html', context)
 
+def menu_view(request):
+    all_meals = Meal.objects.all()
+    context = {
+        "meals": all_meals
+    }
+    return render(request, 'displaymenu.html', context)
+
 def add_menu_view(request):
     submitted = False
     if request.method == "POST":
