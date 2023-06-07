@@ -82,6 +82,10 @@ def myaccount_view(request : WSGIRequest):
     reservations = Reservation.objects.filter(customer=customer)
     context = dict()
 
+    # loyalty points and discount
+    context["points"] = customer.loyalty_points
+    context["discount"] = int(150 - ((customer.loyalty_points % 150)//7))
+
     if (len(reservations) > 0):
         reservation : Reservation = reservations.first() 
         meal : Meal = reservation.meal   
