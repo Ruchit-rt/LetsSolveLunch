@@ -4,7 +4,7 @@ from django.db import models
 
 # all models for LetsSolveLunch
 class Restaurant(models.Model):
-    name            = models.CharField(max_length=50, blank=True, null=True)
+    name            = models.CharField(max_length=50)
     email           = models.EmailField(primary_key= True, max_length=254)
     open_time       = models.TimeField(auto_now_add=False)
     end_time        = models.TimeField(auto_now_add=False)
@@ -17,7 +17,7 @@ class Meal(models.Model):
     number_of_reservations = models.IntegerField()
     price_staff            = models.DecimalField(max_digits=5, decimal_places=2)
     price_student          = models.DecimalField(max_digits=5, decimal_places=2)
-    restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE, default="N/A",  blank=True, null=True)
+    restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 class Customer(models.Model):
     name    = models.CharField(max_length=30)

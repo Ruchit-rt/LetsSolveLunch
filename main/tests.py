@@ -1,18 +1,21 @@
 from django.test import TestCase
-from main.models import Meal, Customer
+from main.models import Meal, Customer, Restaurant
 from django.test import RequestFactory
+import datetime 
 from consumer.views import reserve_success_view
 
 # Create your tests here.
 class MealCreationTestCase(TestCase):
     def setUp(self):
+        Restaurant.objects.create(name = 'Hbar', email = "hbar@ic.ac.uk", open_time = datetime.datetime.now().time(), end_time = datetime.datetime.now().time())
+
         Meal.objects.create(name = "Choc Croissant Brunch",
         description = "Chocolate Ganche sprinkle croissant with black americano",
         picture = "croissantCoffee.jpg",
         number_of_reservations = 3,
         price_staff = 4.99,
-        price_student = 3.99)
-
+        price_student = 3.99,
+        restaurant = Restaurant.objects.get(email = "hbar@ic.ac.uk" ))
         Customer.objects.create(name="Mark", email="a@b.com")
 
     def test_meal_is_added_to_menu(self):
