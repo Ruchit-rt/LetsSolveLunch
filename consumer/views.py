@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from main.models import Meal, Reservation, Customer
+from main.models import Meal, Reservation, Customer, Restaurant
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.mail import send_mail
 import json
@@ -8,10 +8,6 @@ import os
 
 email_subject = "Lets Solve Lunch! Order Confirmation"
 email_id = "letssolvelunch@gmail.com"
-
-def media_view(request):
-    file_name = os.path.join("media", request.GET.get('img'))
-    return HttpResponse(open(file_name, "rb").read(), content_type="image/jpg")
 
 def home_view(request):
     if request.method == "POST":
@@ -22,9 +18,9 @@ def home_view(request):
         except Customer.DoesNotExist:
             return render(request, 'error_login.html', {})
  
-    all_meals = Meal.objects.all()
+    all_restaurants = Restaurant.objects.all()
     context = {
-        "meals": all_meals
+        "restaurants": all_restaurants
     }
     return render(request, 'home.html', context)
 
@@ -66,6 +62,7 @@ def reserve_success_view(request : WSGIRequest):
     return JsonResponse({"message" : "Invalid Request Method"}, status=400) 
 
 def confirm_reserve_view(request : WSGIRequest):
+    print("here")
     if request.method == 'GET':
         try:    
             meal : Meal = Meal.objects.get(meal_id = request.GET.get('meal_id'))
@@ -101,3 +98,13 @@ def order_history_view(request):
         "reservations" : reservations
     }
     return render(request, 'order_history.html', context)
+
+def restaurant_menu_view(request):
+    restaurant = Restaurant.objects.get(name = request.GET.get('restaurant'))
+    print(restaurant)       
+    all_meals = Meal.objects.filter(restaurant = restaurant)
+    # all_meals = Meal.objects.all()
+    context = {
+        "meals": all_meals
+    }
+    return render(request, 'restaurant_menu.html', context)

@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body>
+    <ul>
+    {% for meal in  meals %}
+        <li>{{ meal.name }}, {{ meal.description }}, {{ meal.price_staff }}</li>
+        {% if meal.picture %}
+        <img src="{{ meal.picture.url }}">
+        {% endif %}
+        <br>
+        <a href="../home/confirm_reserve?meal_id={{meal.meal_id}}">
+        <button>Reserve Meal</button>
+        </a>
+    {% endfor %}
+    </ul>
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <div>
+        <b>Home</b> &nbsp; &nbsp; &nbsp;
+        <a href="../myaccount">My Account</a>
+    </div>
+</body>
+</html>
