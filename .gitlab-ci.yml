@@ -96,7 +96,7 @@ test:
       # - python manage.py migrate --run-syncdb
       - find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
       - find . -path "*/migrations/*.pyc"  -delete
-      - echo "from django.db.migrations.recorder import MigrationRecorder\nMigrationRecorder.Migration.objects.filter(app='main').delete()" | python3 manage.py shell 
+      - echo "from django.db.migrations.recorder import MigrationRecorder;MigrationRecorder.Migration.objects.filter(app='main').delete()\n" | python3 manage.py shell 
       - python manage.py makemigrations main
       - python manage.py migrate --fake main zero
       - python manage.py migrate --fake
