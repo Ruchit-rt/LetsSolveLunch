@@ -4,7 +4,7 @@
     </head>
     <body>
         <h1>Confirm reservation?</h1>
-        <p>Are you sure you want to reserve {{ meal_name }} at {{ meal_location }}?</p>
+        <p>Are you sure you want to reserve {{ meal_name }} at {{ meal_location.name }}?</p>
         <div> 
             <form action="../reserve_success/" id="reserve{{ meal_id }}" method="POST">
                 {% csrf_token %}

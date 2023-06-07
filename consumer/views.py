@@ -65,9 +65,10 @@ def confirm_reserve_view(request : WSGIRequest):
     print("here")
     if request.method == 'GET':
         try:    
+            restaurant = Restaurant.objects.get(name = request.GET.get('restaurant'))
             meal : Meal = Meal.objects.get(meal_id = request.GET.get('meal_id'))
             return render(request, 'confirm_reserve.html', 
-            {"meal_id" : meal.meal_id, "meal_name": meal.name, "meal_location" : "SCR"})
+            {"meal_id" : meal.meal_id, "meal_name": meal.name, "meal_location" : restaurant})
         except json.JSONDecodeError:
             return JsonResponse({"message" : "Reserve Unsuccessful"}, status=505)
 
@@ -105,6 +106,7 @@ def restaurant_menu_view(request):
     all_meals = Meal.objects.filter(restaurant = restaurant)
     # all_meals = Meal.objects.all()
     context = {
-        "meals": all_meals
+        "meals": all_meals,
+        'restaurant': restaurant,
     }
     return render(request, 'restaurant_menu.html', context)

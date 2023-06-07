@@ -9,7 +9,7 @@
         <img src="{{ meal.picture.url }}">
         {% endif %}
         <br>
-        <a href="../home/confirm_reserve?meal_id={{meal.meal_id}}">
+        <a href="../home/confirm_reserve?restaurant={{ restaurant.name }}&meal_id={{meal.meal_id}}">
         <button>Reserve Meal</button>
         </a>
     {% endfor %}
