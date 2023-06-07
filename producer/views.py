@@ -1,9 +1,10 @@
 from datetime import datetime, timezone
-from multiprocessing import context
+from decimal import Decimal
+import decimal
 from django.shortcuts import render
 from .forms import MealForm
 from django.http import HttpResponseRedirect
-from main.models import Meal, Reservation, Restaurant
+from main.models import Customer, Meal, Reservation, Restaurant
 from django.core.handlers.wsgi import WSGIRequest
 
 def mycafe_view(request):
@@ -62,9 +63,20 @@ def checkout_result_view(request : WSGIRequest):
         date_diff = (datetime.now(timezone.utc) - reservation.datetime).days
         if date_diff == 1 or date_diff == 0:
             if not reservation.collected:
-                reservation.collected = True
+                reservation.collected = True                
                 reservation.save()
-                return render(request, 'checkout_success.html', {})
+
+                # increment loyalty points for customers
+                customer : Customer = reservation.customer
+                points = 0
+                if (customer.is_student):
+                    points += reservation.meal.price_student
+                else:
+                    points += reservation.meal.price_staff
+                customer.loyalty_points += decimal.Decimal(points)
+                customer.save()
+
+                return render(request, 'checkout_success.html', {"points" : str(points)})
             else:
                 context["message"] = "Duplicate collection."
         else:

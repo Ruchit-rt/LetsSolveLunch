@@ -4,17 +4,26 @@
 </head>
 <body>
     <div>
-    <b>Last Order</b>
-    {% if reservation %}
-    <p> {{name}} &nbsp; {{order_no}} </p>
-    {% else %}
+        <h2>Awards</h2>
+        <b>Loyalty Points - {{points}}</b> 
+        <br>
+        <b>Meals Till Discount - {{discount}}</b>
+    </div>
 
-    {% endif %} 
-
-    <a href="../order_history">View all</a>
+    <br>
+    <br>
+    <div>
+        <h2>Last Order</h2>
+        {% if reservation %}
+        <p> {{name}} &nbsp; {{order_no}} </p>
+        {% else %}
+        {% endif %} 
+        <a href="../order_history">View all</a>
     </div>
 
 
+    <br>
+    <br>
     <br>
     <br>
     <a href="../../">Log out</a>

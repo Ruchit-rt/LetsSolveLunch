@@ -17,11 +17,13 @@ class Meal(models.Model):
     number_of_reservations = models.IntegerField()
     price_staff            = models.DecimalField(max_digits=5, decimal_places=2)
     price_student          = models.DecimalField(max_digits=5, decimal_places=2)
-    restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=False)
 
 class Customer(models.Model):
-    name    = models.CharField(max_length=30)
-    email   = models.EmailField(primary_key = True)
+    name           = models.CharField(max_length=30)
+    email          = models.EmailField(primary_key = True)
+    is_student     = models.BooleanField(default=True, null=True)
+    loyalty_points = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
 class Reservation(models.Model):
     order_no    = models.BigAutoField(primary_key = True)
