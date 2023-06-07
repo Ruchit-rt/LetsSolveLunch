@@ -12,9 +12,9 @@ def mycafe_view(request):
         request.session["producer_email"] = producer_email
         try:
             restaurant = Restaurant.objects.get(email=producer_email)
-            all_meals = Meal.objects.filter(restaurant = restaurant)
         except Restaurant.DoesNotExist:
             return render(request, "email_error.html", {})
+    all_meals = Meal.objects.filter(restaurant = Restaurant.objects.get(email=request.session["producer_email"]))
     context = dict()
     context['items'] = [{"name": meal.name, "number_of_reservations": meal.number_of_reservations} for meal in all_meals]
     return render(request, 'mycafe.html', context)
