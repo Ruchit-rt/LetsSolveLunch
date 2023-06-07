@@ -1,8 +1,6 @@
 from django.test import TestCase
-from main.models import Meal
-from django.core.handlers.wsgi import WSGIRequest
-from io import StringIO
-from django.http import QueryDict
+from main.models import Meal, Customer
+from django.test import RequestFactory
 from consumer.views import reserve_success_view
 
 # Create your tests here.
@@ -13,8 +11,9 @@ class MealCreationTestCase(TestCase):
         picture = "croissantCoffee.jpg",
         number_of_reservations = 3,
         price_staff = 4.99,
-        price_student = 3.99
-        )
+        price_student = 3.99)
+
+        Customer.objects.create(name="Mark", email="a@b.com")
 
     def test_meal_is_added_to_menu(self):
         """Meals are created"""
@@ -27,13 +26,11 @@ class MealReservationTestCase(MealCreationTestCase):
         meal : Meal = Meal.objects.get(name="Choc Croissant Brunch")
         old_count = meal.number_of_reservations
 
-        request = WSGIRequest({
-        'REQUEST_METHOD': 'POST',
-        'wsgi.input': StringIO(),
-        })
+        factory = RequestFactory()
 
-        request.POST = QueryDict('', mutable=True)
-        request.POST['meal_id'] = str(meal.meal_id)
+        request = factory.post('/home/reserve_success/', {'meal_id': str(meal.meal_id)})
+        request.session = {}
+        request.session['user_email'] = "a@b.com"
 
         """reserve a meal"""
         reserve_success_view(request)

@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Order History</title>
+    </head>
+    <body>
+        <h1>Order History</h1>
+    
+        <div> 
+            {% for reservation in  reservations %}
+            {{reservation.meal.name}} {{reservation.order_no}} <br>           
+            {% endfor %}
+        </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <div>
+        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
+        <a href="../myaccount">My Account</a>
+    </div>
+
+    </body>
+</html>

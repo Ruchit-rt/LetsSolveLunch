@@ -20,5 +20,11 @@ COPY . .
 
 # collecting static
 RUN python3 manage.py collectstatic
+
+# migrating
+RUN python manage.py makemigrations
+RUN python manage.py migrate
+RUN python manage.py migrate --run-syncdb
+
 # run gunicorn
 CMD gunicorn drp.wsgi:application --bind 0.0.0.0:$PORT

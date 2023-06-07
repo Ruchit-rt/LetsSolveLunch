@@ -9,4 +9,7 @@ urlpatterns = [
     path('home/reserve_success/', views.reserve_success_view),
     path('home/', views.home_view, name='home'),
     path('home/confirm_reserve/', views.confirm_reserve_view),
+
+    path('myaccount/', views.myaccount_view),
+    path('order_history/', views.order_history_view),
 ]
