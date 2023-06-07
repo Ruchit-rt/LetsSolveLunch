@@ -2,4 +2,9 @@
 
 <a href="consumer/home/"> Consumer Home Page </a> 
 <br>
-<a href="producer/mycafe/"> Producer Cafe Statistics Page </a>
+<form method="POST" action="producer/mycafe/">
+    {% csrf_token %}
+    <input type="email" name="producer_email" placeholder="Email">
+    <button type="submit">Login as Producer</button>
+</form>
+<br>

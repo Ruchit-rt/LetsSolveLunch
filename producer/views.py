@@ -3,34 +3,54 @@ from multiprocessing import context
 from django.shortcuts import render
 from .forms import MealForm
 from django.http import HttpResponseRedirect
-from main.models import Meal, Reservation
+from main.models import Meal, Reservation, Restaurant
 from django.core.handlers.wsgi import WSGIRequest
 
 def mycafe_view(request):
+    if request.method == "POST":
+        producer_email = request.POST.get("producer_email")
+        request.session["producer_email"] = producer_email
+        try:
+            restaurant = Restaurant.objects.get(email=producer_email)
+            all_meals = Meal.objects.filter(restaurant = restaurant)
+        except Restaurant.DoesNotExist:
+            return render(request, "email_error.html", {})
     context = dict()
-    context['items'] = [{"name": meal.name, "number_of_reservations": meal.number_of_reservations} for meal in Meal.objects.all()]
+    context['items'] = [{"name": meal.name, "number_of_reservations": meal.number_of_reservations} for meal in all_meals]
     return render(request, 'mycafe.html', context)
 
 def menu_view(request):
-    all_meals = Meal.objects.all()
+    producer_email = request.session["producer_email"]
+    restaurant = Restaurant.objects.get(email=producer_email)
+    all_meals = Meal.objects.filter(restaurant = restaurant)
     context = {
-        "meals": all_meals
+        "meals": all_meals,
+        "restaurant_name": restaurant.name
     }
     return render(request, 'displaymenu.html', context)
 
 def add_menu_view(request):
     submitted = False
+    producer_email = request.session["producer_email"]
+    restaurant = Restaurant.objects.get(email=producer_email)
     if request.method == "POST":
-        form = MealForm(request.POST, request.FILES)
+        form = MealForm(request.POST, request.FILES, initial={'restaurant': restaurant})
         if form.is_valid():
-            form.save()
+            formcopy = form.save(commit=False)
+            formcopy.restaurant = restaurant
+            formcopy.save()
             return HttpResponseRedirect('?submitted=True')
     else:
         form = MealForm
         if 'submitted' in request.GET:
             submitted = True
-    
-    return render(request, 'menu.html', {'form':form, 'submitted':submitted})
+
+    context = {
+        'form':form, 
+        'submitted':submitted
+    }
+
+    return render(request, 'menu.html', context)
 
 def checkout_view(request):
     return render(request, 'checkout.html', {})

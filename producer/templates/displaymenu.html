@@ -2,7 +2,7 @@
 <head>
 </head>
 <body>
-    <h1> HBar, Sherfield Building </h1>
+    <h1> {{ restaurant_name }} </h1>
     <ul>
     {% for meal in meals %}
         <li>{{ meal.name }}, {{ meal.description }}, {{ meal.price_staff }}</li>
