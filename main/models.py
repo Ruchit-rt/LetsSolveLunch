@@ -4,7 +4,7 @@ from django.db import models
 
 # all models for LetsSolveLunch
 class Restaurant(models.Model):
-    name            = models.CharField(max_length=50, default="N/A",  blank=True, null=True)
+    name            = models.CharField(max_length=50, blank=True, null=True)
     email           = models.EmailField(primary_key= True, max_length=254)
     open_time       = models.TimeField(auto_now_add=False)
     end_time        = models.TimeField(auto_now_add=False)
