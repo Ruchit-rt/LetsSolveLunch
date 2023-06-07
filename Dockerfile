@@ -20,5 +20,14 @@ COPY . .
 
 # collecting static
 RUN python3 manage.py collectstatic
+
+# migrating
+RUN find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+RUN find . -path "*/migrations/*.pyc"  -delete
+RUN echo "from django.db.migrations.recorder import MigrationRecorder;MigrationRecorder.Migration.objects.filter(app='main').delete()" | python3 manage.py shell 
+RUN python manage.py makemigrations main
+RUN python manage.py migrate --fake main zero
+RUN python manage.py migrate --fake
+
 # run gunicorn
 CMD gunicorn drp.wsgi:application --bind 0.0.0.0:$PORT

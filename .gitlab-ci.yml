@@ -91,9 +91,12 @@ test:
   stage: test
   script:
       - source ~/lgl/bin/activate
-      - python manage.py makemigrations
-      - python manage.py migrate
-      - python manage.py migrate --run-syncdb
+      - find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+      - find . -path "*/migrations/*.pyc"  -delete
+      - echo "from django.db.migrations.recorder import MigrationRecorder;MigrationRecorder.Migration.objects.filter(app='main').delete()" | python3 manage.py shell 
+      - python manage.py makemigrations main
+      - python manage.py migrate --fake main zero
+      - python manage.py migrate --fake
       - python3 manage.py test
 
 publicDeploy:

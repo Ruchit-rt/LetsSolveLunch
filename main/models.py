@@ -19,8 +19,13 @@ class Meal(models.Model):
     price_student          = models.DecimalField(max_digits=5, decimal_places=2)
     restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE, default="N/A",  blank=True, null=True)
 
+class Customer(models.Model):
+    name    = models.CharField(max_length=30)
+    email   = models.EmailField(primary_key = True)
+
 class Reservation(models.Model):
     order_no    = models.BigAutoField(primary_key = True)
     datetime    = models.DateTimeField(auto_now_add=True)
     meal        = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    customer    = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     collected   = models.BooleanField(default=False)

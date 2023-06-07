@@ -1,0 +1,14 @@
+<h1>LETS SOLVE LUNCH!</h1>
+
+<form action="consumer/home/" method="POST">
+    {% csrf_token %}
+    <input type="email" name="user_email" placeholder="Email">
+    <button type="submit">Login as Customer</button>
+</form>
+
+<form method="POST" action="producer/mycafe/">
+    {% csrf_token %}
+    <input type="email" name="producer_email" placeholder="Email">
+    <button type="submit">Login as Producer</button>
+</form>
+<br>
