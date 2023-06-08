@@ -11,4 +11,5 @@ urlpatterns = [
     path('home/confirm_reserve/', views.confirm_reserve_view),
     path('myaccount/', views.myaccount_view),
     path('order_history/', views.order_history_view),
+    path('leaderboard/', views.leaderboard_view),
 ]

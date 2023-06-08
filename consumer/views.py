@@ -89,10 +89,10 @@ def myaccount_view(request : WSGIRequest):
         meal : Meal = reservation.meal   
         context["reservation"] = True
         context["order_no"] = reservation.order_no
-        context["name"] = meal.name
+        context["meal_name"] = meal.name
     else:
         context["reservation"] = False
-
+    context['customer_name'] = customer.name
     return render(request, 'myaccount.html', context)
 
 def order_history_view(request):
@@ -114,3 +114,9 @@ def restaurant_menu_view(request):
         'restaurant': restaurant,
     }
     return render(request, 'restaurant_menu.html', context)
+
+def leaderboard_view(request):
+    context = dict()
+    context['customers'] = sorted(list(Customer.objects.all()), key=lambda c : c.loyalty_points, reverse=True)
+    context['current_customer_email'] = Customer.objects.get(email=request.session['user_email']).email
+    return render(request, 'leaderboard.html', context)

@@ -3,25 +3,21 @@
     <title>My Account</title>
 </head>
 <body>
-    <div>
-        <h2>Awards</h2>
-        <b>Loyalty Points - {{points}}</b> 
-        <br>
-        <b>Meals Till Discount - {{discount}}</b>
-    </div>
+    <h2>Welcome {{customer_name}}!</h2>
 
+    <ul>
+    <li><div>
+        <b>Loyalty Points - {{points}}</b> 
+    </div> </li>
     <br>
-    <br>
-    <div>
-        <h2>Last Order</h2>
+    <li><div>
         {% if reservation %}
-        <p> {{name}} &nbsp; {{order_no}} </p>
+        <p> <b>Last Order: </b> {{meal_name}} ({{order_no}}) </p>
         {% else %}
         {% endif %} 
         <a href="../order_history">View all</a>
-    </div>
-
-
+    </div></li>
+</ul>
     <br>
     <br>
     <br>
@@ -29,11 +25,10 @@
     <a href="../../">Log out</a>
     <br>
     <br>
-    
-
     <div>
         <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
-        <b>My Account</b>
+        <b>My Account</b> &nbsp; &nbsp; &nbsp;
+        <a href="../leaderboard">LeaderBoard</a> 
     </div>
 </body>
 </html>

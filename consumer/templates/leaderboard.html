@@ -1,0 +1,44 @@
+<html>
+<head>
+</head>
+<body>
+    <h1>Green Heroes</h1>
+    <tr>
+      <th><b>Rank</b></th>
+        <th><b> &nbsp;&nbsp;&nbsp;&nbsp; 
+          Name &nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></th> 
+        <th><b> Points</b></th>
+    </tr>
+    <table>
+        {% for customer in customers %}
+          {% cycle '<tr>' '<tr>' '<br>' ''%}
+            {% if customer.email == current_customer_email %}
+            <td><b>{{ forloop.counter }}</b></td>
+            <td>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+              <b>{{customer.name}}</b> &nbsp;&nbsp;&nbsp;</td>
+            <td><b>{{customer.loyalty_points}}</b></td>
+            {% else %}
+            <td>{{ forloop.counter }}</td>
+            <td>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+              {{customer.name}} &nbsp;&nbsp;&nbsp;</td>
+            <td>{{customer.loyalty_points}}</td>
+            {% endif %} 
+          {% cycle '' '<br>' '</tr>' '</tr>' %}
+        {% endfor %}
+    </table>
+    <br><br>
+    <p>For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
+    wasted food. Thank you for helping us create a green ecosystem at school.
+    </p>
+    <br>
+    <i>Prizes for highest ranked heroes coming soon!</i>
+    <br>
+    <br><br><br><br><br><br>
+    <div>
+        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
+        <a href="../myaccount">My Account</a> &nbsp; &nbsp; &nbsp;
+        <b>LeaderBoard</b>
+    </div>
+</body>
+</html>    

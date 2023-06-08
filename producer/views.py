@@ -63,20 +63,22 @@ def checkout_result_view(request : WSGIRequest):
         date_diff = (datetime.now(timezone.utc) - reservation.datetime).days
         if date_diff == 1 or date_diff == 0:
             if not reservation.collected:
-                reservation.collected = True                
-                reservation.save()
+                if reservation.meal.restaurant.email == request.session["producer_email"]:
+                    reservation.collected = True                
+                    reservation.save()
 
-                # increment loyalty points for customers
-                customer : Customer = reservation.customer
-                points = 0
-                if (customer.is_student):
-                    points += reservation.meal.price_student
+                    # increment loyalty points for customers
+                    customer : Customer = reservation.customer
+                    points = 0
+                    if (customer.is_student):
+                        points += reservation.meal.price_student
+                    else:
+                        points += reservation.meal.price_staff
+                    customer.loyalty_points += decimal.Decimal(points)
+                    customer.save()
+                    return render(request, 'checkout_success.html', {"points" : str(points)})
                 else:
-                    points += reservation.meal.price_staff
-                customer.loyalty_points += decimal.Decimal(points)
-                customer.save()
-
-                return render(request, 'checkout_success.html', {"points" : str(points)})
+                    context["message"] = "Incorrect reservation location"
             else:
                 context["message"] = "Duplicate collection."
         else:

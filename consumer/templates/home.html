@@ -5,15 +5,16 @@
     <ul>
     {% for restaurant in  restaurants %}
         <a href="restaurant_menu?restaurant={{restaurant.name}}">
-        <button>{{ restaurant.name }}</button>
-        </a>
-        <br><br>
+        <button> {{restaurant.name}} </button></a>
+        <br>
+        <br>
     {% endfor %}
     </ul>
     <br><br><br><br><br><br>
     <div>
         <b>Home</b> &nbsp; &nbsp; &nbsp;
-        <a href="../myaccount">My Account</a>
+        <a href="../myaccount">My Account</a> &nbsp; &nbsp; &nbsp;
+        <a href="../leaderboard">LeaderBoard</a> 
     </div>
 </body>
 </html>    
