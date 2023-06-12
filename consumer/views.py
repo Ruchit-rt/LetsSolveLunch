@@ -5,6 +5,10 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.core.mail import send_mail
 import json
 import os
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 
 email_subject = "Lets Solve Lunch! Order Confirmation"
 email_id = "letssolvelunch@gmail.com"
@@ -49,9 +53,9 @@ def reserve_success_view(request : WSGIRequest):
 
             # Make Reservation
             customer_email = request.session['user_email']
-            print(request.session['user_email'])
             customer = Customer.objects.get(email=customer_email)
             reservation : Reservation = Reservation(meal=meal, customer=customer)
+            reservation.save()
             reservation.save()
 
             return render(request, 'reserve_success.html', 
