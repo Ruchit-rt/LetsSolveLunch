@@ -20,10 +20,27 @@ class Meal(models.Model):
     restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=False)
 
 class Customer(models.Model):
+    COMP = "Computing/JMC"
+    MATH = "Math"
+    BIOMED = "Bio-medical engineering"
+    MEDICINE = "Medicine"
+
+    DEPARTMENTS = [COMP, MATH, BIOMED, MEDICINE]
+
+    DEPT_CHOICES = (
+    (COMP, "Computing/JMC"),
+    (MATH, "Math"),
+    (BIOMED, "Bio-medical engineering"),
+    (MEDICINE, "Medicine"),
+    )
+
     name           = models.CharField(max_length=30)
     email          = models.EmailField(primary_key = True)
     is_student     = models.BooleanField(default=True, null=True)
     loyalty_points = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    department     = models.CharField(max_length=30,
+                        choices=DEPT_CHOICES,
+                        default=COMP)
 
 class Reservation(models.Model):
     order_no    = models.BigAutoField(primary_key = True)

@@ -4,7 +4,7 @@ from main.models import Meal, Reservation, Customer, Restaurant
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.mail import send_mail
 import json
-import os
+from django.db.models import Sum
 
 email_subject = "Lets Solve Lunch! Order Confirmation"
 email_id = "letssolvelunch@gmail.com"
@@ -85,7 +85,7 @@ def myaccount_view(request : WSGIRequest):
     context["discount"] = int(150 - ((customer.loyalty_points % 150)//7))
 
     if (len(reservations) > 0):
-        reservation : Reservation = reservations.first() 
+        reservation : Reservation = reservations.last()
         meal : Meal = reservation.meal   
         context["reservation"] = True
         context["order_no"] = reservation.order_no
@@ -117,6 +117,27 @@ def restaurant_menu_view(request):
 
 def leaderboard_view(request):
     context = dict()
-    context['customers'] = sorted(list(Customer.objects.all()), key=lambda c : c.loyalty_points, reverse=True)
+    customers = sorted(list(Customer.objects.all()), key=lambda c : c.loyalty_points, reverse=True)
+    context['customers'] = customers
+
+    ranks = list(range(1,len(customers) + 1))
+    names = map(lambda x: x.name,  customers)
+    loyalty_points = map(lambda x: x.loyalty_points,  customers)
+    departments = map(lambda x: x.department,  customers)
+    emails = map(lambda x: x.email,  customers)
+    context['LUnique'] = zip(ranks, names, loyalty_points, departments ,emails)
+
     context['current_customer_email'] = Customer.objects.get(email=request.session['user_email']).email
     return render(request, 'leaderboard.html', context)
+
+def departmentLeaderBoard_view(request):
+    context = dict()
+    departments = Customer.objects.values('department').annotate(Sum('loyalty_points')).order_by()
+
+    ranks = list(range(1,len(departments) + 1))
+    depts = [d['department'] for d in departments]
+    loyalty_points = [d["loyalty_points__sum"] for d in departments]
+    context['LUnique'] = zip(ranks, depts, loyalty_points)
+
+    context['current_department'] = Customer.objects.get(email=request.session['user_email']).department
+    return render(request, 'departmentLeaderBoard.html', context)

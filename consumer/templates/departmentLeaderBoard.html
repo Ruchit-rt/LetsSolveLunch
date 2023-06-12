@@ -5,28 +5,22 @@
     <h1>Green Heroes</h1>
   <div>
     <table border="2">
-      <tr><td colspan="5"><h2>&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;
-        &nbsp; Individual <h2></td></tr>
-      <tr>
+        <tr><td colspan="5"><h2>&nbsp;&nbsp;&nbsp;&nbsp; Departmental <h2></td></tr>
+        <tr>
         <td><b><i>Rank</i></b></td>
-        <td><b><i>Name</i></b></td>
         <td><b><i>Department</i></b></td>
         <td><b><i>Points</i></b></td>
       </tr>
-        {% for r, n, p , d, e in LUnique %}
-        {% if e == current_customer_email %}
+        {% for r, d, p in LUnique %}
+        {% if d == current_department %}
         <tr>
           <td><b>{{r}}</b></td>
-          <td><b>{{n}}</b></td>
           <td><b>{{d}}</b></td>
           <td><b>{{p}}</b></td>
       </tr>
         {% else %}
             <tr>
                 <td>{{r}}</td>
-                <td>{{n}}</td>
                 <td>{{d}}</td>
                 <td>{{p}}</td>
             </tr>
@@ -34,9 +28,9 @@
         {% endfor %}
     </table>
   </div>
-  
-  <br>
-    <a href="../departmentLeaderBoard">Department LeaderBoard</a>
+
+    <br>
+    <a href="../leaderboard">Individual LeaderBoard</a>
 
     <br><br>
     
