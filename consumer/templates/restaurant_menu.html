@@ -1,31 +1,178 @@
 <html>
 <head>
+    <style>
+        .meal-image {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            float: right;
+            border-radius: 10px;
+        }
+
+        .meal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 30px;
+            color: #2D0C57;
+            float: left;
+            width: 100%;
+            margin-bottom: 10px;
+            height: 20%;
+        }
+
+        .menu-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            color: #2D0C57;
+            float: left;
+            width: 100%;
+            margin: 0;
+            text-align: center;
+        }
+
+        .meal-item {
+            position: relative;
+            width: 100%%;
+            height: 250px;
+            padding: 0;
+            text-align: center;
+        }
+
+        .meal-description {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            color: #000000; 
+            float: left;
+            width: 100%;
+            height: 50%;
+            text-align: center;
+        }
+
+        .meal-price {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            float: left;
+            width: 100%;
+            text-align: center
+        }
+
+        .meal-image-button-section {
+            width: 40%;
+            height: 100%;
+            float: right;
+        }
+
+        .meal-image-section {
+            width: 100%;
+            height: 80%;
+        }
+
+        .button-section {
+            width: 100%;
+            height: 20%;
+            position: relative;
+        }
+
+        .meal-text-section {
+            width: 60%;
+            height: 100%;
+            float: left;
+            position: relative;
+        }
+
+        .reserve-button {
+            background-color: #89B681;
+            border: none;
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            width: 100%;
+            height: 80%;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            border-radius: 10px;
+            bottom: 0;
+            position: absolute;
+        }
+
+        .reserve-button:hover {
+            background-color: #6B9165;
+        }
+
+        .all-meal-items {
+            margin: auto;
+            width: 45%;
+        }
+          
+        .tab {
+            width: 100%;
+        }
+          
+        .tab a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+          
+        .tab a:hover:not(.active) {
+            background-color: #6B9165;
+        }
+          
+        .active {
+            background-color: #89B681;
+        }
+
+        .tabs {
+            list-style-type: none;
+            margin: 0 0 20px;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
-    <ul>
-    {% for meal in  meals %}
-        <li>{{ meal.name }}, {{ meal.description }}, {{ meal.price_staff }}</li>
-        {% if meal.picture %}
-        <img src="{{ meal.picture.url }}">
-        {% endif %}
-        <br>
-        <a href="../home/confirm_reserve?restaurant={{ restaurant.name }}&meal_id={{meal.meal_id}}">
-        <button>Reserve Meal</button>
-        </a>
-    {% endfor %}
-    </ul>
-    <br>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
+    <div class="tabs">
+        <li class="tab active"><a href=".">Home</a></li>
+        <li class="tab"><a href="../myaccount">My Account</a></li>
+    </div>
     <div>
-        <b>Home</b> &nbsp; &nbsp; &nbsp;
-        <a href="../myaccount">My Account</a>
+        <p class="menu-title">Menu</p>
+        <div class="all-meal-items">
+            {% for meal in meals %}<br><br><br>
+                <div class="meal-item">
+                    <div class="meal-text-section">
+                        <div class="meal-title">{{ meal.name }}</div>
+                            <div class="meal-description">{{ meal.description }}</div>
+                            <div class="meal-price">Price: £{{ meal.price_staff }}</div>
+                    </div>
+                    <div class="meal-image-button-section">
+                        <div class="meal-image-section">
+                        {% if meal.picture %}
+                            <img class="meal-image" src="{{ meal.picture.url }}">
+                        {% endif %}
+                        </div>
+                        <div class="button-section">
+                            <a href="../home/confirm_reserve?restaurant={{ restaurant.name }}&meal_id={{meal.meal_id}}"><button class="reserve-button">Reserve Meal</button></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>
