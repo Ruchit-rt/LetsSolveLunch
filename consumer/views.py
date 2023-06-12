@@ -132,7 +132,7 @@ def leaderboard_view(request):
 
 def departmentLeaderBoard_view(request):
     context = dict()
-    departments = Customer.objects.values('department').annotate(Sum('loyalty_points')).order_by()
+    departments = Customer.objects.values('department').annotate(Sum('loyalty_points')).order_by('-loyalty_points__sum')
 
     ranks = list(range(1,len(departments) + 1))
     depts = [d['department'] for d in departments]
