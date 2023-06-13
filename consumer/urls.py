@@ -13,4 +13,5 @@ urlpatterns = [
     path('order_history/', views.order_history_view),
     path('leaderboard/', views.leaderboard_view),
     path('departmentLeaderBoard/', views.departmentLeaderBoard_view),
+    path('tag_filter/', views.tag_filter_view),
 ]

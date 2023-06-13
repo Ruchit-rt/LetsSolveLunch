@@ -1,5 +1,7 @@
+from ast import Set
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
+from taggit.models import Tag
 from main.models import Meal, Reservation, Customer, Restaurant
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.mail import send_mail
@@ -22,6 +24,12 @@ def home_view(request):
     context = {
         "restaurants": all_restaurants
     }
+    tags = {}
+    for meal in Meal.objects.all():
+        for tag in meal.tags.all():
+            tags[tag] = ""
+
+    context['tags'] = list(tags.keys())
     return render(request, 'home.html', context)
 
 def emailsent_view(request : WSGIRequest):
@@ -62,9 +70,9 @@ def reserve_success_view(request : WSGIRequest):
     return JsonResponse({"message" : "Invalid Request Method"}, status=400) 
 
 def confirm_reserve_view(request : WSGIRequest):
-    print("here")
     if request.method == 'GET':
         try:    
+            print(request.GET.get('restaurant'))
             restaurant = Restaurant.objects.get(name = request.GET.get('restaurant'))
             meal : Meal = Meal.objects.get(meal_id = request.GET.get('meal_id'))
             return render(request, 'confirm_reserve.html', 
@@ -141,3 +149,13 @@ def departmentLeaderBoard_view(request):
 
     context['current_department'] = Customer.objects.get(email=request.session['user_email']).department
     return render(request, 'departmentLeaderBoard.html', context)
+
+def tag_filter_view(request : WSGIRequest):
+    context = {}
+    tag = request.GET.get('tag')
+    context['tag'] = tag
+    filtered_meals = Meal.objects.filter(tags__name__in=[tag])
+    context['found'] = filtered_meals.count() > 0
+    # print(filtered_meals)
+    context['meals'] = filtered_meals
+    return render(request, 'tag_filter.html', context)
