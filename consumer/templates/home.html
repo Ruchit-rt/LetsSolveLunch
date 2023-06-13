@@ -1,6 +1,27 @@
 <html>
 <head>
     {% include 'navbar.html' %}
+    {% include 'link_style.html' %}
+    <style>
+        .all-restaurants {
+            margin: 0 auto;
+            width: 45%;
+            max-width: 600px;
+        }
+        
+        .restaurant {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            margin: 10px 0;
+            border-radius: 20px;
+            border: 1px solid #000000;
+        }
+
+        .restaurant:hover {
+            background: #D9D9D9;
+        }
+    </style>
 </head>
 <body>
     <div class="tabs">
@@ -8,13 +29,14 @@
         <li class="tab"><a href="../leaderboard">Leaderboard</a></li>
         <li class="tab"><a href="../myaccount">My Account</a></li>
     </div>
-    <ul>
-    {% for restaurant in  restaurants %}
+    <div class="all-restaurants">
+        {% for restaurant in  restaurants %}
         <a href="restaurant_menu?restaurant={{restaurant.name}}">
-        <button> {{restaurant.name}} </button></a>
-        <br>
-        <br>
-    {% endfor %}
-    </ul>
+            <div class="restaurant">
+            {{restaurant.name}}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 </body>
 </html>

@@ -2,6 +2,97 @@
 <head>
     <title>My Account</title>
     {% include 'navbar.html' %}
+    <style>
+        .logout {
+            background-color: #f44336;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            border-radius: 5px;
+        }
+
+        .logout:hover {
+            opacity: 0.8;
+        }
+
+        .logout-button-section {
+            text-align: center
+        }
+
+        .my-account-section {
+            background: #D9D9D9;
+            border-radius: 5px;
+            text-align: center;
+            padding: 20px 50px;
+            margin: 20px 0;
+            overflow: auto;
+        }
+
+        .section-header {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Montserrat, sans-serif;
+            font-style: italic;
+            font-weight: 600;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        .main-header {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Montserrat, sans-serif;
+            font-weight: 600;
+            font-size: 30px;
+            color: #000000;
+            text-transform: uppercase;
+            text-align: center;
+        }
+        
+        .my-account-page {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .order-history-link {
+            font-family: Montserrat, sans-serif;
+            font-style: italic;
+            font-weight: 100;
+            font-size: 20px;
+            text-transform: uppercase;
+            color: #7203FF;
+        }
+
+        .my-account-text {
+            font-family: Montserrat, sans-serif;
+            font-weight: 400;
+            font-size: 17px;
+        }
+
+        .loyalty-points {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 50px;
+            font-weight: 500;
+        }
+
+        .left-section {
+            width: 50%;
+            text-align: left;
+            float:left;
+        }
+
+        .right-section {
+            width: 50%;
+            text-align: right;
+            float: right;
+        }
+    </style>
+
+    {% include 'link_style.html' %}
 </head>
 <body>
     <div class="tabs">
@@ -9,27 +100,37 @@
         <li class="tab"><a href="../leaderboard">Leaderboard</a></li>
         <li class="tab active"><a href="../myaccount">My Account</a></li>
     </div>
-
-    <h2>Welcome {{customer_name}}!</h2>
-
-    <ul>
-    <li><div>
-        <b>Loyalty Points - {{points}}</b> 
-    </div> </li>
-    <br>
-    <li><div>
+    <div class="my-account-page">
+        <p class="main-header">Welcome {{customer_name}}!</p>
+        
+        <div class="my-account-section">
+            <p class="section-header">Loyalty Points</p>
+            <p class="loyalty-points">{{points}}</p>
+        </div>
         {% if reservation %}
-        <p> <b>Last Order: </b> {{meal_name}} ({{order_no}}) </p>
+        <div class="my-account-section">
+            <div>
+                <p class="section-header">Last Order</p>
+            </div>
+            <div style="overflow:auto">
+                <div class="left-section">
+                    <p class="my-account-text">{{meal_name}} </p>
+                </div>
+                <div class="right-section">
+                    <p class="my-account-text"> #{{order_no}} </p>
+                </div>
+            </div>
+            <div>
+                <p class="order-history-link"> <a href="../order_history">View all</a></p>
+            </div>
+        </div>
         {% else %}
-        {% endif %} 
-        <a href="../order_history">View all</a>
-    </div></li>
-</ul>
-    <br>
-    <br>
-    <br>
-    <br>
-    <a href="../../">Log out</a>
-    
+        {% endif %}
+        <div class="logout-button-section">
+            <a href="../../">
+                <button class="logout">Log out</button>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
