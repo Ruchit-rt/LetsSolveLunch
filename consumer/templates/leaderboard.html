@@ -1,7 +1,13 @@
 <html>
 <head>
+  {% include 'navbar.html' %}
 </head>
 <body>
+    <div class="tabs">
+      <li class="tab"><a href="../home">Home</a></li>
+      <li class="tab active"><a href="../leaderboard">Leaderboard</a></li>
+      <li class="tab"><a href="../myaccount">My Account</a></li>
+    </div>
     <h1>Green Heroes</h1>
     <tr>
       <th><b>Rank</b></th>
@@ -33,12 +39,5 @@
     </p>
     <br>
     <i>Prizes for highest ranked heroes coming soon!</i>
-    <br>
-    <br><br><br><br><br><br>
-    <div>
-        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
-        <a href="../myaccount">My Account</a> &nbsp; &nbsp; &nbsp;
-        <b>LeaderBoard</b>
-    </div>
 </body>
 </html>    

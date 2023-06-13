@@ -1,8 +1,15 @@
 <html>
 <head>
     <title>My Account</title>
+    {% include 'navbar.html' %}
 </head>
 <body>
+    <div class="tabs">
+        <li class="tab"><a href="../home">Home</a></li>
+        <li class="tab"><a href="../leaderboard">Leaderboard</a></li>
+        <li class="tab active"><a href="../myaccount">My Account</a></li>
+    </div>
+
     <h2>Welcome {{customer_name}}!</h2>
 
     <ul>
@@ -23,12 +30,6 @@
     <br>
     <br>
     <a href="../../">Log out</a>
-    <br>
-    <br>
-    <div>
-        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
-        <b>My Account</b> &nbsp; &nbsp; &nbsp;
-        <a href="../leaderboard">LeaderBoard</a> 
-    </div>
+    
 </body>
 </html>
