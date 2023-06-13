@@ -1,23 +1,20 @@
 <html>
 <head>
+    {% include 'logout_button.html' %}
+    {% include 'navbar.html' %}
+    <script src='https://cdn.tailwindcss.com'></script>
 </head>
 <body>
-{% for meal in items %}
-    <h1> {{ meal.name }} has {{ meal.number_of_reservations }} reservations. </h1>
-{% endfor %}
-<br>
-<a href="../../">Log out</a>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-<div>
-    <a href = "../displaymenu">Menu</a> &nbsp; &nbsp; &nbsp;
-    <a href="../checkout">Checkout</a> &nbsp; &nbsp; &nbsp;
-    <b>My Cafe</b>
+    <div class="tabs">
+        <li class="tab"><a href = "../displaymenu">Menu</a></li>
+        <li class="tab"><a href="../checkout">Checkout</a></li>
+        <li class="tab active"><a href=".">My Cafe</a></li>
+    </div>
+    {% for meal in items %}
+        <h1> {{ meal.name }} has {{ meal.number_of_reservations }} reservations. </h1>
+    {% endfor %}
+    <div class="logout-button-section">
+        <a href="../../"><button class="logout">Log out</button></a>
 </div>
 
 </body>
