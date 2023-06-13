@@ -18,7 +18,6 @@
             float: left;
             width: 100%;
             margin-bottom: 10px;
-            height: 20%;
         }
 
         .menu-title {
@@ -48,7 +47,19 @@
             color: #000000; 
             float: left;
             width: 100%;
-            height: 50%;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        
+        .meal-tags {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            color: #000000; 
+            float: left;
+            width: 100%;
+            margin: 0 0 50px 0;
             text-align: center;
         }
 
@@ -112,6 +123,11 @@
             max-width: 600px;
             width: 100%;
         }
+
+        .meal-tag {
+            cursor: default;
+            border-radius: 10px;
+        }
     </style>
     {% include 'navbar.html' %}
     <script src='https://cdn.tailwindcss.com'></script>
@@ -129,8 +145,15 @@
                 <div class="meal-item">
                     <div class="meal-text-section">
                         <div class="meal-title">{{ meal.name }}</div>
-                            <div class="meal-description">{{ meal.description }}</div>
-                            <div class="meal-price">Price: £{{ meal.price_staff }}</div>
+                        <div class="meal-description">
+                            {{ meal.description }}
+                        </div>
+                        <div class="meal-tags">
+                            {% for tag in meal.tags.all %}
+                            <button type="button" class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-white border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag">{{ tag }}</button>
+                            {% endfor %}
+                        </div>
+                        <div class="meal-price">Price: £{{ meal.price_staff }}</div>
                     </div>
                     <div class="meal-image-button-section">
                         <div class="meal-image-section">
@@ -143,12 +166,6 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                {% for tag in meal.tags.all %}
-                    <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">{{ tag }}</button>
-                {% endfor %}
-                <br>
-                <!--<button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"> Reserve Meal</button>-->
             {% endfor %}
         </div>
     </div>
