@@ -1,20 +1,42 @@
 <html>
 <head>
+    {% include 'navbar.html' %}
+    {% include 'link_style.html' %}
+    <style>
+        .all-restaurants {
+            margin: 0 auto;
+            width: 45%;
+            max-width: 600px;
+        }
+        
+        .restaurant {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            margin: 10px 0;
+            border-radius: 20px;
+            border: 1px solid #000000;
+        }
+
+        .restaurant:hover {
+            background: #D9D9D9;
+        }
+    </style>
 </head>
 <body>
-    <ul>
-    {% for restaurant in  restaurants %}
+    <div class="tabs">
+        <li class="tab active"><a href=".">Home</a></li>
+        <li class="tab"><a href="../leaderboard">Leaderboard</a></li>
+        <li class="tab"><a href="../myaccount">My Account</a></li>
+    </div>
+    <div class="all-restaurants">
+        {% for restaurant in  restaurants %}
         <a href="restaurant_menu?restaurant={{restaurant.name}}">
-        <button> {{restaurant.name}} </button></a>
-        <br>
-        <br>
-    {% endfor %}
-    </ul>
-    <br><br><br><br><br><br>
-    <div>
-        <b>Home</b> &nbsp; &nbsp; &nbsp;
-        <a href="../myaccount">My Account</a> &nbsp; &nbsp; &nbsp;
-        <a href="../leaderboard">LeaderBoard</a> 
+            <div class="restaurant">
+            {{restaurant.name}}
+            </div>
+        </a>
+        {% endfor %}
     </div>
 </body>
-</html>    
+</html>
