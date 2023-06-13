@@ -1,9 +1,16 @@
 <html>
 <head>
+  {% include 'navbar.html' %}
+  {% include 'general_styles.html' %}
 </head>
 <body>
-    <h1>Green Heroes</h1>
-  <div>
+  <div class="tabs">
+    <li class="tab"><a href="../home">Home</a></li>
+    <li class="tab active"><a href="../leaderboard">Leaderboard</a></li>
+    <li class="tab"><a href="../myaccount">My Account</a></li>
+  </div>
+  <div class="main-page">
+    <p class="main-header">Green Heroes</p>
     <table border="2">
       <tr><td colspan="5"><h2>&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -30,27 +37,21 @@
                 <td>{{d}}</td>
                 <td>{{p}}</td>
             </tr>
-         {% endif %}   
-        {% endfor %}
-    </table>
-  </div>
+         {% endif %}
+         {% endfor %}
+  </table>
+  
   
   <br>
     <a href="../departmentLeaderBoard">Department LeaderBoard</a>
 
     <br><br>
-    
-    <p>For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
+    <p class="general-text">For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
     wasted food. Thank you for helping us create a green ecosystem at school.
     </p>
     <br>
     <i>Prizes for highest ranked heroes coming soon!</i>
-    <br>
-    <br><br><br><br><br><br>
-    <div>
-        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
-        <a href="../myaccount">My Account</a> &nbsp; &nbsp; &nbsp;
-        <b>LeaderBoard</b>
-    </div>
+  </div>
+</div>
 </body>
 </html>    
