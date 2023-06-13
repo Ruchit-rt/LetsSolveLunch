@@ -12,7 +12,11 @@
     <br>
     <li><div>
         {% if reservation %}
-        <p> <b>Last Order: </b> {{meal_name}} ({{order_no}}) </p>
+        <form action='last_order' method="POST">
+            {% csrf_token %}
+        <p> <b>Last Order: </b> <button type="submit" name="submit" value="{{order_no}}"
+            class="btn btn-primary" id="submit-id-update">{{meal_name}} ({{order_no}})</button></p>
+        </form>
         {% else %}
         {% endif %} 
         <a href="../order_history">View all</a>

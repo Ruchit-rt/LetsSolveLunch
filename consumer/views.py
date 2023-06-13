@@ -28,6 +28,16 @@ def home_view(request):
     }
     return render(request, 'home.html', context)
 
+def last_order_view(request):
+    if request.POST.get('submit', None):
+        order_no = (request.POST.get('submit'))
+        reservation = Reservation.objects.get(order_no=order_no)
+        return render(request, 'last_order.html', {'reservation': reservation})
+    else:
+        return render(request, 'last_order.html')
+
+
+
 def emailsent_view(request : WSGIRequest):
     if request.POST.get('submit', None):
             order_no = (request.POST.get('submit'))
@@ -89,7 +99,7 @@ def myaccount_view(request : WSGIRequest):
     context["discount"] = int(150 - ((customer.loyalty_points % 150)//7))
 
     if (len(reservations) > 0):
-        reservation : Reservation = reservations.first() 
+        reservation : Reservation = reservations.last() 
         meal : Meal = reservation.meal   
         context["reservation"] = True
         context["order_no"] = reservation.order_no
@@ -103,8 +113,9 @@ def order_history_view(request):
     user_email = request.session['user_email']
     customer : Customer = Customer.objects.get(email=user_email)
     reservations = Reservation.objects.filter(customer=customer)
+    rev_res = reversed(list(reservations))
     context = {
-        "reservations" : reservations
+        "reservations" : rev_res
     }
     return render(request, 'order_history.html', context)
 

@@ -12,4 +12,5 @@ urlpatterns = [
     path('myaccount/', views.myaccount_view),
     path('order_history/', views.order_history_view),
     path('leaderboard/', views.leaderboard_view),
+    path('myaccount/last_order', views.last_order_view),
 ]

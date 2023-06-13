@@ -1,34 +1,74 @@
-<html>
-<head>
-    <link rel="stylesheet" href="checkout.css">
-    <title>Customer checkout</title>
-</head>
-<body>
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">  
+    <title>QR Code Scanner or Reader | CodingNepal</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN Link for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <form action="#">
+        <input type="file" hidden>
+        <img src="#" alt="qr-code">
+        <div class="content">
+          <i class="fas fa-cloud-upload"></i>
+          <p>Upload QR Code to Read</p>
+        </div>
+      </form>
+      <div class="details">
+        <textarea spellcheck="false" disabled></textarea>
+        <div class="buttons">
+          <button class="close">Close</button>
+          <button class="copy">Copy Text</button>
+        </div>
+      </div>
+    </div>
 
-<form action="../checkout_result/" method="POST">
-{% csrf_token %}
-<div class="form__group">
-    <input type="number" name="order_no" class="form__field" placeholder="Order Number">
-</div>
-<br>
-<button type="submit">Submit</button>
-</form>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-<div>
-    <a href = "../displaymenu">Menu</a> &nbsp; &nbsp; &nbsp;
-    <b>Checkout</b> &nbsp; &nbsp; &nbsp;
-    <a href="../mycafe">My Cafe</a>
-</div>
-
-
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
+
+<script type="text/javascript">
+    const wrapper = document.querySelector(".wrapper"),
+    form = document.querySelector("form"),
+    fileInp = form.querySelector("input"),
+    infoText = form.querySelector("p"),
+    closeBtn = document.querySelector(".close"),
+    copyBtn = document.querySelector(".copy");
+    
+    function fetchRequest(file, formData) {
+        infoText.innerText = "Scanning QR Code...";
+        fetch("http://api.qrserver.com/v1/read-qr-code/", {
+            method: 'POST', body: formData
+        }).then(res => res.json()).then(result => {
+            result = result[0].symbol[0].data;
+            infoText.innerText = result ? "Upload QR Code to Scan" : "Couldn't scan QR Code";
+            if(!result) return;
+            document.querySelector("textarea").innerText = result;
+            form.querySelector("img").src = URL.createObjectURL(file);
+            wrapper.classList.add("active");
+        }).catch(() => {
+            infoText.innerText = "Couldn't scan QR Code";
+        });
+    }
+    
+    fileInp.addEventListener("change", async e => {
+        let file = e.target.files[0];
+        if(!file) return;
+        let formData = new FormData();
+        formData.append('file', file);
+        fetchRequest(file, formData);
+    });
+    
+    copyBtn.addEventListener("click", () => {
+        let text = document.querySelector("textarea").textContent;
+        navigator.clipboard.writeText(text);
+    });
+    
+    form.addEventListener("click", () => fileInp.click());
+    closeBtn.addEventListener("click", () => wrapper.classList.remove("active"));
+</script>
