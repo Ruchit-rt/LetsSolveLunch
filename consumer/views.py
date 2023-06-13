@@ -113,13 +113,12 @@ def order_history_view(request):
     return render(request, 'order_history.html', context)
 
 def restaurant_menu_view(request):
-    restaurant = Restaurant.objects.get(name = request.GET.get('restaurant'))
-    print(restaurant)       
+    restaurant = Restaurant.objects.get(name = request.GET.get('restaurant'))    
     all_meals = Meal.objects.filter(restaurant = restaurant)
-    # all_meals = Meal.objects.all()
     context = {
         "meals": all_meals,
-        'restaurant': restaurant,
+        "restaurant": restaurant,
+        "is_student" : Customer.objects.get(email=request.session.get('user_email')).is_student,
     }
     return render(request, 'restaurant_menu.html', context)
 
@@ -151,11 +150,11 @@ def departmentLeaderBoard_view(request):
     return render(request, 'departmentLeaderBoard.html', context)
 
 def tag_filter_view(request : WSGIRequest):
-    context = {}
+    context = dict()
     tag = request.GET.get('tag')
     context['tag'] = tag
     filtered_meals = Meal.objects.filter(tags__name__in=[tag])
     context['found'] = filtered_meals.count() > 0
-    # print(filtered_meals)
     context['meals'] = filtered_meals
+    context['is_student'] = Customer.objects.get(email=request.session.get('user_email')).is_student
     return render(request, 'tag_filter.html', context)
