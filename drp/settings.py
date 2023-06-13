@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'main',
     'producer',
     'consumer',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,5 @@ EMAIL_HOST_USER = 'letssolvelunch@gmail.com'
 EMAIL_HOST_PASSWORD = 'jxkkkcihvdrsgurt'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+TAGGIT_CASE_INSENSITIVE = True

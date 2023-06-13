@@ -37,9 +37,12 @@ def add_menu_view(request):
     if request.method == "POST":
         form = MealForm(request.POST, request.FILES, initial={'restaurant': restaurant})
         if form.is_valid():
+            m_tags = form.cleaned_data['tags']
+            # object.tags.add(*m_tags)
             formcopy = form.save(commit=False)
             formcopy.restaurant = restaurant
             formcopy.save()
+            form.save_m2m()
             return HttpResponseRedirect('?submitted=True')
     else:
         form = MealForm

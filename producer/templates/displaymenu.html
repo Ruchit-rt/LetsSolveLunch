@@ -1,19 +1,29 @@
 <html>
 <head>
+    <script src='https://cdn.tailwindcss.com'></script>
 </head>
 <body>
-    <h1> {{ restaurant_name }} </h1>
+    <h1><b> {{ restaurant_name }} </b></h1>
+    <div class="m-6">
     <ul>
     {% for meal in meals %}
         <li>{{ meal.name }}, {{ meal.description }}, {{ meal.price_staff }}</li>
         {% if meal.picture %}
         <img src="{{ meal.picture.url }}">
         {% endif %}
+        {% for tag in meal.tags.all %}
+            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">{{ tag }}</button>
+        {% endfor %}
+        <br>
         <br>
     {% endfor %}
     <br>
-    <a href = "../addmenu">Add Item</a> &nbsp; &nbsp; &nbsp;
+    <a href = "../addmenu">
+    <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">Add Item</button>
+    </a>&nbsp; &nbsp; &nbsp;
     </ul>
+    </div>
+
     <br>
     <a href="../../">Log out</a>
     <br>

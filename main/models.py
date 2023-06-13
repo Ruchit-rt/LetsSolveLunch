@@ -1,5 +1,4 @@
-from datetime import datetime
-from pyexpat import model
+from taggit.managers import TaggableManager
 from django.db import models
 
 # all models for LetsSolveLunch
@@ -18,6 +17,7 @@ class Meal(models.Model):
     price_staff            = models.DecimalField(max_digits=5, decimal_places=2)
     price_student          = models.DecimalField(max_digits=5, decimal_places=2)
     restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=False)
+    tags                   = TaggableManager()
 
 class Customer(models.Model):
     COMP = "Computing/JMC"
