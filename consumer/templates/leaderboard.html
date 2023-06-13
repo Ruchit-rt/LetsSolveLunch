@@ -18,9 +18,10 @@
 
     .leaderboard-table {
       border-collapse: separate;
-      width: 50%;
+      width: 100%;
       border-spacing: 0;
       margin: 0 auto;
+      max-width: 600px;
     }
 
     table tr th,
@@ -60,6 +61,7 @@
       border-bottom-right-radius: 6px;
     }
   </style>
+  <script src='https://cdn.tailwindcss.com'></script>
 </head>
 <body>
   <div class="tabs">
@@ -70,10 +72,6 @@
   <div class="main-page" style="text-align: center">
     <p class="main-header">Green Heroes</p>
     <table class="leaderboard-table">
-      <!--<tr><td colspan="5"><h2>&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;
-        &nbsp; Individual <h2></td></tr>-->
       <thead>
       <tr>
         <th><b><i>Rank</i></b></th>
@@ -106,7 +104,8 @@
     <a href="../departmentLeaderBoard">Department LeaderBoard</a>
 
     <br><br>
-    <p class="general-text">For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
+    <p class="general-text">
+      For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
     wasted food. Thank you for helping us create a green ecosystem at school.
     </p>
     <br>
@@ -116,4 +115,4 @@
   </div>
 </div>
 </body>
-</html>    
+</html>
