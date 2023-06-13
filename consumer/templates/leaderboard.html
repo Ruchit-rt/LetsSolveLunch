@@ -1,6 +1,7 @@
 <html>
 <head>
   {% include 'navbar.html' %}
+  {% include 'general_styles.html' %}
 </head>
 <body>
     <div class="tabs">
@@ -8,13 +9,14 @@
       <li class="tab active"><a href="../leaderboard">Leaderboard</a></li>
       <li class="tab"><a href="../myaccount">My Account</a></li>
     </div>
-    <h1>Green Heroes</h1>
+    <div class="main-page">
+    <p class="main-header">Green Heroes</p>
     <tr>
       <th><b>Rank</b></th>
-        <th><b> &nbsp;&nbsp;&nbsp;&nbsp; 
+      <th><b> &nbsp;&nbsp;&nbsp;&nbsp; 
           Name &nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></th> 
-        <th><b> Points</b></th>
+      <th><b> Points</b></th>
     </tr>
     <table>
         {% for customer in customers %}
@@ -34,10 +36,11 @@
         {% endfor %}
     </table>
     <br><br>
-    <p>For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
+    <p class="general-text">For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
     wasted food. Thank you for helping us create a green ecosystem at school.
     </p>
     <br>
     <i>Prizes for highest ranked heroes coming soon!</i>
+  </div>
 </body>
 </html>    

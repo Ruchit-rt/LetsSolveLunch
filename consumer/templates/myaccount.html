@@ -2,6 +2,7 @@
 <head>
     <title>My Account</title>
     {% include 'navbar.html' %}
+    {% include 'general_styles.html' %}
     <style>
         .logout {
             background-color: #f44336;
@@ -31,33 +32,6 @@
             overflow: auto;
         }
 
-        .section-header {
-            font-size: 20px;
-            font-weight: bold;
-            font-family: Montserrat, sans-serif;
-            font-style: italic;
-            font-weight: 600;
-            color: #000000;
-            text-transform: uppercase;
-        }
-
-        .main-header {
-            font-size: 20px;
-            font-weight: bold;
-            font-family: Montserrat, sans-serif;
-            font-weight: 600;
-            font-size: 30px;
-            color: #000000;
-            text-transform: uppercase;
-            text-align: center;
-        }
-        
-        .my-account-page {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
         .order-history-link {
             font-family: Montserrat, sans-serif;
             font-style: italic;
@@ -65,12 +39,6 @@
             font-size: 20px;
             text-transform: uppercase;
             color: #7203FF;
-        }
-
-        .my-account-text {
-            font-family: Montserrat, sans-serif;
-            font-weight: 400;
-            font-size: 17px;
         }
 
         .loyalty-points {
@@ -100,7 +68,7 @@
         <li class="tab"><a href="../leaderboard">Leaderboard</a></li>
         <li class="tab active"><a href="../myaccount">My Account</a></li>
     </div>
-    <div class="my-account-page">
+    <div class="main-page">
         <p class="main-header">Welcome {{customer_name}}!</p>
         
         <div class="my-account-section">
@@ -114,10 +82,10 @@
             </div>
             <div style="overflow:auto">
                 <div class="left-section">
-                    <p class="my-account-text">{{meal_name}} </p>
+                    <p class="general-text">{{meal_name}} </p>
                 </div>
                 <div class="right-section">
-                    <p class="my-account-text"> #{{order_no}} </p>
+                    <p class="general-text"> #{{order_no}} </p>
                 </div>
             </div>
             <div>
