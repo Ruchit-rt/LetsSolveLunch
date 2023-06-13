@@ -3,26 +3,9 @@
     <title>My Account</title>
     {% include 'navbar.html' %}
     {% include 'general_styles.html' %}
+    {% include 'logout_button.html' %}
+    <script src='https://cdn.tailwindcss.com'></script>
     <style>
-        .logout {
-            background-color: #f44336;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: auto;
-            border-radius: 5px;
-        }
-
-        .logout:hover {
-            opacity: 0.8;
-        }
-
-        .logout-button-section {
-            text-align: center
-        }
-
         .my-account-section {
             background: #D9D9D9;
             border-radius: 5px;
@@ -89,7 +72,7 @@
                 </div>
             </div>
             <div>
-                <p class="order-history-link"> <a href="../order_history">View all</a></p>
+                <p class="order-history-link"> <a href="../order_history">View all orders</a></p>
             </div>
         </div>
         {% else %}

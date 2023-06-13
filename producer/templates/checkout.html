@@ -1,34 +1,22 @@
 <html>
 <head>
-    <link rel="stylesheet" href="checkout.css">
+    {% include 'navbar.html' %}
     <title>Customer checkout</title>
+    <script src='https://cdn.tailwindcss.com'></script>
 </head>
 <body>
-
-<form action="../checkout_result/" method="POST">
-{% csrf_token %}
-<div class="form__group">
-    <input type="number" name="order_no" class="form__field" placeholder="Order Number">
-</div>
-<br>
-<button type="submit">Submit</button>
-</form>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-<div>
-    <a href = "../displaymenu">Menu</a> &nbsp; &nbsp; &nbsp;
-    <b>Checkout</b> &nbsp; &nbsp; &nbsp;
-    <a href="../mycafe">My Cafe</a>
-</div>
-
-
+    <div class="tabs">
+        <li class="tab"><a href="../displaymenu">Menu</a></li>
+        <li class="tab active"><a href=".">Checkout</a></li>
+        <li class="tab"><a href="../mycafe">My Cafe</a></li>
+    </div>
+    <form action="../checkout_result/" method="POST">
+    {% csrf_token %}
+    <div class="form__group">
+        <input type="number" name="order_no" class="form__field" placeholder="Order Number">
+    </div>
+    <br>
+    <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
