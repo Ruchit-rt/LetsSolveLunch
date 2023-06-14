@@ -1,5 +1,9 @@
 from taggit.managers import TaggableManager
 from django.db import models
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 
 # all models for LetsSolveLunch
 class Restaurant(models.Model):
@@ -48,3 +52,18 @@ class Reservation(models.Model):
     meal        = models.ForeignKey(Meal, on_delete=models.CASCADE)
     customer    = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
     collected   = models.BooleanField(default=False)
+    qr          = models.ImageField(blank = True, upload_to="images/")
+
+    def __str__(self) -> str:
+        return str(self.order_no)
+
+    def save(self, *args, **kwargs):
+        qr_image = qrcode.make(self.order_no)
+        qr_offset = Image.new('RGB', (310,310), 'white')
+        qr_offset.paste(qr_image)
+        files_name = f'{str(self.order_no)}.png'
+        stream = BytesIO()
+        qr_offset.save(stream, 'PNG')
+        self.qr.save(files_name, File(stream),save=False)
+        qr_offset.close()
+        super().save(*args, **kwargs)

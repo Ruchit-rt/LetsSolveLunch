@@ -1,12 +1,17 @@
 from ast import Set
-from django.shortcuts import render
-from django.http import JsonResponse
 from taggit.models import Tag
-from main.models import Meal, Reservation, Customer, Restaurant
-from django.core.handlers.wsgi import WSGIRequest
-from django.core.mail import send_mail
+import os
 import json
+import qrcode
+from io import BytesIO
+from main.models import Meal, Reservation, Customer, Restaurant
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.core.files import File
+from django.core.mail import EmailMessage
+from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Sum
+from email.mime.image import MIMEImage
 
 email_subject = "Lets Solve Lunch! Order Confirmation"
 email_id = "letssolvelunch@gmail.com"
@@ -32,18 +37,39 @@ def home_view(request):
     context['tags'] = list(tags.keys())
     return render(request, 'home.html', context)
 
+def last_order_view(request):
+    if request.POST.get('submit', None):
+        order_no = (request.POST.get('submit'))
+        reservation = Reservation.objects.get(order_no=order_no)
+        return render(request, 'last_order.html', {'reservation': reservation})
+    else:
+        return render(request, 'last_order.html')
+
+
+
 def emailsent_view(request : WSGIRequest):
     if request.POST.get('submit', None):
             order_no = (request.POST.get('submit'))
             reservation = Reservation.objects.get(order_no=order_no)
+            image = reservation.qr
             meal = reservation.meal
             user_email = request.session['user_email']
-            send_mail(email_subject,
-            f"""Your order number is #{order_no} 
-Meal Name: {meal.name}
-Price: {meal.price_student}""", 
+
+
+
+            msg = EmailMessage(email_subject,
+            f"""Your order number is #{order_no}<br> 
+Meal Name: {meal.name}<br>
+Price: {meal.price_student}<br><img src="cid:image"><br>""", 
             email_id,
-            [user_email] )
+            [user_email])
+            msg.content_subtype = "html"
+            att = MIMEImage(image.read())
+            att.add_header('Content-ID', f'<image>')
+            att.add_header('X-Attachment-Id', f'image.png')
+            att['Content-Disposition'] = f'inline; filename=image.png'
+            msg.attach(att)
+            msg.send()
             return render(request, 'email_confirmation.html', {"email" : user_email})
 
 def reserve_success_view(request : WSGIRequest):
@@ -57,9 +83,9 @@ def reserve_success_view(request : WSGIRequest):
 
             # Make Reservation
             customer_email = request.session['user_email']
-            print(request.session['user_email'])
             customer = Customer.objects.get(email=customer_email)
             reservation : Reservation = Reservation(meal=meal, customer=customer)
+            reservation.save()
             reservation.save()
 
             return render(request, 'reserve_success.html', 
@@ -93,7 +119,7 @@ def myaccount_view(request : WSGIRequest):
     context["discount"] = int(150 - ((customer.loyalty_points % 150)//7))
 
     if (len(reservations) > 0):
-        reservation : Reservation = reservations.last()
+        reservation : Reservation = reservations.last() 
         meal : Meal = reservation.meal   
         context["reservation"] = True
         context["order_no"] = reservation.order_no
@@ -107,8 +133,9 @@ def order_history_view(request):
     user_email = request.session['user_email']
     customer : Customer = Customer.objects.get(email=user_email)
     reservations = Reservation.objects.filter(customer=customer)
+    rev_res = reversed(list(reservations))
     context = {
-        "reservations" : reservations
+        "reservations" : rev_res
     }
     return render(request, 'order_history.html', context)
 
