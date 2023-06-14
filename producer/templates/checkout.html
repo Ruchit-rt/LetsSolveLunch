@@ -1,8 +1,52 @@
 <html>
 <head>
+    {% include 'producer_general_styles.html' %}
     {% include 'navbar.html' %}
     <title>Customer checkout</title>
     <script src='https://cdn.tailwindcss.com'></script>
+    <style>
+        .main-page-changes {
+            text-align: center;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .submit-button {
+            background-color: #4CAF50 !important;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        input:focus::placeholder {
+            color: transparent;
+        }
+
+        .order-no-input {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        body {
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
     <div class="tabs">
@@ -10,13 +54,16 @@
         <li class="tab navbar-active"><a href=".">Checkout</a></li>
         <li class="tab"><a href="../mycafe">My Cafe</a></li>
     </div>
-    <form action="../checkout_result/" method="POST">
-    {% csrf_token %}
-    <div class="form__group">
-        <input type="number" name="order_no" class="form__field" placeholder="Order Number">
+    <div class="centrize">
+        <div class="main-page main-page-changes">
+            <form action="../checkout_result/" method="POST">
+                {% csrf_token %}
+                <div class="form__group">
+                    <input type="number" name="order_no" class="order-no-input" placeholder="Order Number">
+                </div>
+                <button class="submit-button" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
-    <br>
-    <button type="submit">Submit</button>
-    </form>
 </body>
 </html>

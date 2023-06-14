@@ -32,6 +32,7 @@
             width: 100%;
             margin: 0;
             text-align: center;
+            margin-bottom: 10px;
         }
 
         .meal-item {
@@ -147,10 +148,12 @@
         .meal-tag {
             cursor: default;
             border-radius: 10px;
+            background-color: #4CAF50 !important;
+
         }
 
         .add-item-button {
-            background-color: #6B9165;
+            background-color: #4CAF50 !important;
             border: none;
             color: white;
             text-decoration: none;
@@ -173,16 +176,16 @@
         }
     </style>
 </head>
-<body>
+<body style="padding-bottom: 30px">
     <div class="tabs">
         <li class="tab navbar-active"><a href=".">Menu</a></li>
         <li class="tab"><a href = "../checkout">Checkout</a></li>
         <li class="tab"><a href="../mycafe">My Cafe</a></li>
     </div>
     <div class="main-page">
-        <p class="menu-title">{{ restaurant_name }}</p>
+        <div class="menu-title">{{ restaurant_name }}</div>
         <div class="all-meal-items">
-            {% for meal in meals %}<br><br><br>
+            {% for meal in meals %}<br><br>
             <div class="meal-item">
                 <div class="meal-text-section">
                     <div class="meal-title">{{ meal.name }}</div>
