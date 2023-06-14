@@ -2,13 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from main.models import Meal, Reservation, Customer, Restaurant
 from django.core.handlers.wsgi import WSGIRequest
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 import json
 import os
 import qrcode
 from io import BytesIO
 from django.core.files import File
 from PIL import Image, ImageDraw
+from email.mime.image import MIMEImage
 
 email_subject = "Lets Solve Lunch! Order Confirmation"
 email_id = "letssolvelunch@gmail.com"
@@ -42,14 +43,21 @@ def emailsent_view(request : WSGIRequest):
     if request.POST.get('submit', None):
             order_no = (request.POST.get('submit'))
             reservation = Reservation.objects.get(order_no=order_no)
+            image = reservation.qr
             meal = reservation.meal
             user_email = request.session['user_email']
-            send_mail(email_subject,
+            msg = EmailMessage(email_subject,
             f"""Your order number is #{order_no} 
 Meal Name: {meal.name}
 Price: {meal.price_student}""", 
             email_id,
-            [user_email] )
+            [user_email])
+            msg.content_subtype = "html"
+            if image:
+                mime_image = MIMEImage(image.read())
+                mime_image.add_header('Content-ID', '<image>')
+                msg.attach(mime_image)
+            msg.send()
             return render(request, 'email_confirmation.html', {"email" : user_email})
 
 def reserve_success_view(request : WSGIRequest):
