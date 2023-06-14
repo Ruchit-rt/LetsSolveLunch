@@ -44,7 +44,23 @@ INSTALLED_APPS = [
     'producer',
     'consumer',
     'taggit',
+    'channels',
 ]
+
+# CHANNEL_LAYERS = {
+#     'default' : {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('localhost', 6379)],
+#         },
+#     }
+# }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,7 +81,7 @@ ROOT_URLCONF = 'drp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +94,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'drp.wsgi.application'
+# WSGI_APPLICATION = 'drp.wsgi.application'
+ASGI_APPLICATION = 'drp.asgi.application'
+
 
 
 # Database

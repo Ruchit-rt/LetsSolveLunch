@@ -1,5 +1,7 @@
 <html>
+  {% load static %}
 <head>
+    <script src="{% static 'dynamicCafe.js' %}" defer></script>
     {% include 'logout_button.html' %}
     {% include 'navbar.html' %}
     {% include 'general_styles.html' %}
@@ -79,10 +81,10 @@
                   <th><b>Reservations</b></th>
                 </tr>
             </thead>
-            {% for meal in items %}
+            {% for meal in meals %}
                 <tr>
                     <td>{{meal.name}}</td>
-                    <td>{{meal.number_of_reservations}}</td>
+                    <td id="numres{{meal.meal_id}}">{{meal.number_of_reservations}}</td>
                 </tr>
             {% endfor %}
         </table>

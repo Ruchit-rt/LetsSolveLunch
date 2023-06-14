@@ -1,9 +1,12 @@
 <html>
+    {% load static %}
     <head>
         <title>Order Confirmed</title>
+        <script src="{% static 'dyanmicReserve.js' %}" defer></script>
     </head>
     <body>
         <h1>Order Confirmed</h1>
+        <div style="visibility: hidden;" id="meal_id">{{ meal_id }}</div>
         <p>Your order number is #{{order_no}}. 
             Remember to use this code during checkout. </p>
         <form action='emailsent/' method="POST">

@@ -63,7 +63,7 @@ def reserve_success_view(request : WSGIRequest):
             reservation.save()
 
             return render(request, 'reserve_success.html', 
-            {"meal": meal, "order_no" : reservation.order_no})
+            {"meal": meal, "order_no" : reservation.order_no, "meal_id" : meal.meal_id})
         
         except json.JSONDecodeError:
             return JsonResponse({"message" : "Reserve Unsuccessful"}, status=505)
