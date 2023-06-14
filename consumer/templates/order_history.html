@@ -1,25 +1,48 @@
 <html>
     <head>
+        {% include 'general_styles.html' %}
+        {% include 'consumer_navbar.html' %}
+
+        <style>
+            .left-section {
+                width: 50%;
+                text-align: left;
+                float:left;
+            }
+    
+            .right-section {
+                width: 50%;
+                text-align: right;
+                float: right;
+            }
+
+            .order-history-record {
+                height: 50px;
+                margin-bottom: 15px;
+            }
+        </style>
         <title>Order History</title>
     </head>
     <body>
-        <h1>Order History</h1>
+        <div class="tabs">
+            <li class="tab"><a href="../home">Home</a></li>
+            <li class="tab"><a href="../leaderboard">Leaderboard</a></li>
+            <li class="tab navbar-active"><a href="../myaccount">My Account</a></li>
+        </div>
+        <p class="main-header" style="margin-bottom: 20px">Order History</p>
     
-        <div> 
+        <div class="main-page"> 
             {% for reservation in  reservations %}
-            {{reservation.meal.name}} {{reservation.order_no}} <br>           
+                <div class="general-text order-history-record">
+                    <div class="left-section">
+                        <b>{{reservation.meal.name}}</b><br>
+                        {{reservation.meal.restaurant.name}} (£{{reservation.meal.price_staff}})
+                    </div>
+                    <div class="right-section">
+                        #{{reservation.order_no}}
+                    </div>
+                </div>
             {% endfor %}
         </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    
-    <div>
-        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
-        <a href="../myaccount">My Account</a>
-    </div>
-
     </body>
 </html>
