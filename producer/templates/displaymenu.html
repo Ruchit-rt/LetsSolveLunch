@@ -117,6 +117,23 @@
             position: absolute;
         }
 
+        .add-item-button {
+            background-color: #3b3b3b;
+            border: none;
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            width: 100%;
+            height: 80%;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            border-radius: 10px;
+            bottom: 0;
+            position: absolute;
+        }
+
         .reserve-button:hover {
             background-color: #6B9165;
         }
@@ -133,7 +150,26 @@
         }
 
         .add-item-button {
-            
+            background-color: #6B9165;
+            border: none;
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            border-radius: 10px;
+            bottom: 0;
+            position: absolute;
+        }
+
+        .add-item-div {
+            position: relative;
+            text-align: center;
+            width: 100%;
+            height: 7%;
         }
     </style>
 </head>
@@ -143,38 +179,40 @@
         <li class="tab"><a href = "../checkout">Checkout</a></li>
         <li class="tab"><a href="../mycafe">My Cafe</a></li>
     </div>
-    <div>
-        <h1><b> {{ restaurant_name }} </b></h1>
+    <div class="main-page">
+        <p class="menu-title">{{ restaurant_name }}</p>
         <div class="all-meal-items">
-        <ul>
-        {% for meal in meals %}<br><br><br>
-        <div class="meal-item">
-            <div class="meal-text-section">
-                <div class="meal-title">{{ meal.name }}</div>
-                <div class="meal-description">
-                    {{ meal.description }}
+            {% for meal in meals %}<br><br><br>
+            <div class="meal-item">
+                <div class="meal-text-section">
+                    <div class="meal-title">{{ meal.name }}</div>
+                        <div class="meal-description">
+                            {{ meal.description }}
+                        </div>
+                        <div class="meal-tags">
+                            {% for tag in meal.tags.all %}
+                            <button type="button" class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-white border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag">{{ tag }}</button>
+                            {% endfor %}
+                        </div>
+                        <div class="meal-price">Student Price: £{{ meal.price_student }}</div>
+                        <div class="meal-price">Staff  Price: £{{ meal.price_staff }}</div>  
+                    </div>
+                    <div class="meal-image-button-section">
+                        <div class="meal-image-section">
+                        {% if meal.picture %}
+                        <img class="meal-image" src="{{ meal.picture.url }}">
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="meal-tags">
-                    {% for tag in meal.tags.all %}
-                    <button type="button" class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-white border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag">{{ tag }}</button>
-                    {% endfor %}
-                </div>
-                <div class="meal-price">Price: £{{ meal.price_staff }}</div>
             </div>
-            <div class="meal-image-button-section">
-                <div class="meal-image-section">
-                {% if meal.picture %}
-                    <img class="meal-image" src="{{ meal.picture.url }}">
-                {% endif %}
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-        <br>
-        <a href = "../addmenu">
-        <button type="button" class="add-item-button">Add Item</button>
-        </a>&nbsp; &nbsp; &nbsp;
-        </ul>
+            <br>
+            <div class="add-item-div">
+                <a href = "../addmenu">
+                    <button class="add-item-button">Add Item</button>
+                </a>
+            </div>
         </div>
     </div>
 </body>

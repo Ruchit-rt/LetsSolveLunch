@@ -7,12 +7,13 @@
     <script src='https://cdn.tailwindcss.com'></script>
     <style>
         .my-account-section {
-            background: #D9D9D9;
-            border-radius: 5px;
+            background: #fff;
+            border-radius: 20px;
             text-align: center;
             padding: 20px 50px;
             margin: 20px 0;
             overflow: auto;
+            border: 2px solid #E5E5E5;
         }
 
         .order-history-link {
@@ -41,6 +42,10 @@
             text-align: right;
             float: right;
         }
+
+        .inner-section {
+            margin: 20px 0;
+        }
     </style>
 
     {% include 'link_style.html' %}
@@ -60,10 +65,10 @@
         </div>
         {% if reservation %}
         <div class="my-account-section">
-            <div>
+            <div class="inner-section">
                 <p class="section-header">Last Order</p>
             </div>
-            <div style="overflow:auto">
+            <div class="inner-section" style="overflow:auto">
                 <div class="left-section">
                     <p class="general-text">{{meal_name}} </p>
                 </div>
@@ -71,7 +76,7 @@
                     <p class="general-text"> #{{order_no}} </p>
                 </div>
             </div>
-            <div>
+            <div class="inner-section">
                 <p class="order-history-link"> <a href="../order_history">View all orders</a></p>
             </div>
         </div>

@@ -151,6 +151,9 @@
             <div class="meal-text-section">
                 <div class="meal-title">{{ meal.name }}</div>
                 <div class="meal-description">
+                    @ {{ meal.restaurant.name }}
+                </div>
+                <div class="meal-description">
                     {{ meal.description }}
                 </div>
                 <div class="meal-tags">
@@ -158,7 +161,13 @@
                     <button type="button" class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-green-400 border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag">{{ tag }}</button>
                     {% endfor %}
                 </div>
-                <div class="meal-price">Price: £{{ meal.price_staff }}</div>
+                <div class="meal-price">
+                    {% if is_student %}
+                    Price: £{{ meal.price_student }}
+                    {% else %}
+                    Price: £{{ meal.price_staff }}
+                    {% endif %}
+                </div>
             </div>
             <div class="meal-image-button-section">
                 <div class="meal-image-section">

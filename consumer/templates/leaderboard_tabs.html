@@ -1,21 +1,26 @@
 <style>
-  {% comment %} .nav-link {
-    background-color: #0080FF;
-    color: #FFF; {% endcomment %}
-
-    li.active.leaderboard-tab > a:hover    {
-      background-color: #eee;
-      color: #000000;
+    li.leaderboard-tab:not(.active) > a:hover    {
+      background-color: #cccccc;
+      color: #000;
+      border-bottom: 2px solid #cccccc;
+    }
+    
+    li.active.leaderboard-tab > a, li.active.leaderboard-tab > a:focus, li.active.leaderboard-tab > a:hover {
+      background-color: #89B681;
+      color: #ffffff;
+      border-bottom: 2px solid #89B681;
+      border-right: 1px solid #89B681;
+      border-left: 1px solid #89B681;
+      padding: 10px 15px;
+    }
+    
+    .leaderboard-tab {
+      width: 50%;
+      font-weight: bold;
+      fon
     }
 
-  li.active.leaderboard-tab > a, li.active.leaderboard-tab > a:focus {
-    background-color: #CED7C8;
-    color: #000000;
-  }
-
-
-
-  .leaderboard-tab {
-    width: 50%;
-  }
+    .nav-link {
+      width: 100%;
+    }
 </style>
