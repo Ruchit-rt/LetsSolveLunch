@@ -1,14 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from main.models import Meal, Reservation, Customer, Restaurant
-from django.core.handlers.wsgi import WSGIRequest
-from django.core.mail import send_mail, EmailMessage
-import json
 import os
+import json
 import qrcode
 from io import BytesIO
+from main.models import Meal, Reservation, Customer, Restaurant
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 from django.core.files import File
-from PIL import Image, ImageDraw
+from django.core.mail import EmailMessage
+from django.core.handlers.wsgi import WSGIRequest
 from email.mime.image import MIMEImage
 
 email_subject = "Lets Solve Lunch! Order Confirmation"
@@ -46,17 +45,21 @@ def emailsent_view(request : WSGIRequest):
             image = reservation.qr
             meal = reservation.meal
             user_email = request.session['user_email']
+
+
+
             msg = EmailMessage(email_subject,
-            f"""Your order number is #{order_no} 
-Meal Name: {meal.name}
-Price: {meal.price_student}""", 
+            f"""Your order number is #{order_no}<br> 
+Meal Name: {meal.name}<br>
+Price: {meal.price_student}<br><img src="cid:image"><br>""", 
             email_id,
             [user_email])
             msg.content_subtype = "html"
-            if image:
-                mime_image = MIMEImage(image.read())
-                mime_image.add_header('Content-ID', '<image>')
-                msg.attach(mime_image)
+            att = MIMEImage(image.read())
+            att.add_header('Content-ID', f'<image>')
+            att.add_header('X-Attachment-Id', f'image.png')
+            att['Content-Disposition'] = f'inline; filename=image.png'
+            msg.attach(att)
             msg.send()
             return render(request, 'email_confirmation.html', {"email" : user_email})
 
