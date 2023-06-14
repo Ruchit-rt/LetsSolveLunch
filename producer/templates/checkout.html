@@ -1,8 +1,11 @@
+{% load static %}
 <html>
 <head>
     {% include 'navbar.html' %}
     <title>Customer checkout</title>
     <script src='https://cdn.tailwindcss.com'></script>
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="tabs">
@@ -10,13 +13,27 @@
         <li class="tab active"><a href=".">Checkout</a></li>
         <li class="tab"><a href="../mycafe">My Cafe</a></li>
     </div>
+    <div id="qr-reader" style="width: 600px"></div>
     <form action="../checkout_result/" method="POST">
     {% csrf_token %}
     <div class="form__group">
-        <input type="number" name="order_no" class="form__field" placeholder="Order Number">
+      <input id="qr-code"type="number" name="order_no" class="form__field" placeholder="Order Number">
     </div>
     <br>
     <button type="submit">Submit</button>
     </form>
 </body>
 </html>
+
+
+<script type="text/javascript">
+  function onScanSuccess(decodedText, decodedResult) {
+    console.log(`Code scanned = ${decodedText}`, decodedResult);
+    console.log(parseInt(decodedText))
+    document.getElementById("qr-code").value = parseInt(decodedText)
+  }
+  var html5QrcodeScanner = new Html5QrcodeScanner(
+    "qr-reader", { fps: 10, qrbox: 250 }
+  );
+  html5QrcodeScanner.render(onScanSuccess);
+</script>

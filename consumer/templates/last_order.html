@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Order History</title>
+    </head>
+    <body>
+        <h1>Order History</h1>
+    
+        <div> 
+            Collect {{reservation.meal.name}} from {{reservation.meal.restaurant.name}} between {{reservation.meal.restaurant.open_time}} and {{reservation.meal.restaurant.end_time}}
+        </br>
+        </br>
+            R Code:
+        </br>
+            {% if reservation.qr %}
+                <img src="{{ reservation.qr.url}}">
+            {% endif %}
+        </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <div>
+        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
+        <a href="../myaccount">My Account</a>
+    </div>
+
+    </body>
+</html>
