@@ -1,6 +1,6 @@
 <html>
 <head>
-    {% include 'navbar.html' %}
+    {% include 'producer_navbar.html' %}
     {% include 'general_styles.html' %}
     <script src='https://cdn.tailwindcss.com'></script>
     <style>
@@ -148,12 +148,16 @@
         .meal-tag {
             cursor: default;
             border-radius: 10px;
-            background-color: #4CAF50 !important;
-
+            background-color: rgb(22 163 74) !important;
+            border: none;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            padding: 8px 18px;
+            font-size: 15px;
         }
 
         .add-item-button {
-            background-color: #4CAF50 !important;
+            background-color: #020B4A !important;
             border: none;
             color: white;
             text-decoration: none;
@@ -166,6 +170,10 @@
             border-radius: 10px;
             bottom: 0;
             position: absolute;
+        }
+
+        .add-item-button:hover {
+            opacity: 0.8;
         }
 
         .add-item-div {
@@ -194,7 +202,7 @@
                         </div>
                         <div class="meal-tags">
                             {% for tag in meal.tags.all %}
-                            <button type="button" class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-white border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag">{{ tag }}</button>
+                            <button type="button" class="meal-tag">{{ tag }}</button>
                             {% endfor %}
                         </div>
                         <div class="meal-price">Student Price: £{{ meal.price_student }}</div>
