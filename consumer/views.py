@@ -133,10 +133,18 @@ def leaderboard_view(request):
     loyalty_points = map(lambda x: x.loyalty_points,  customers)
     departments = map(lambda x: x.department,  customers)
     emails = map(lambda x: x.email,  customers)
-    context['LUnique'] = zip(ranks, names, loyalty_points, departments ,emails)
+    context['LIndiUnique'] = zip(ranks, names, loyalty_points, departments ,emails)
+    
+    dpt_departments = Customer.objects.values('department').annotate(Sum('loyalty_points')).order_by('-loyalty_points__sum')
+    dpt_ranks = list(range(1,len(dpt_departments) + 1))
+    dpt_depts = [d['department'] for d in dpt_departments]
+    dpt_loyalty_points = [d["loyalty_points__sum"] for d in dpt_departments]
+    context['LDeptUnique'] = zip(dpt_ranks, dpt_depts, dpt_loyalty_points)
+    context['current_department'] = Customer.objects.get(email=request.session['user_email']).department
 
     context['current_customer_email'] = Customer.objects.get(email=request.session['user_email']).email
     return render(request, 'leaderboard.html', context)
+
 
 def departmentLeaderBoard_view(request):
     context = dict()
