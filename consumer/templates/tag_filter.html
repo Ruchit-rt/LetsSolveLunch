@@ -98,7 +98,7 @@
         }
 
         .reserve-button {
-            background-color: #3b3b3b;
+            background: #020B4A;
             border: none;
             color: white;
             text-decoration: none;
@@ -115,7 +115,7 @@
         }
 
         .reserve-button:hover {
-            background-color: #6B9165;
+            opacity: 0.8;
         }
 
         .all-meal-items {
@@ -127,6 +127,12 @@
         .meal-tag {
             cursor: default;
             border-radius: 10px;
+            background-color: rgb(22 163 74) !important;
+            border: none;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            padding: 8px 18px;
+            font-size: 15px;
         }
     </style>
     {% include 'navbar.html' %}
@@ -135,9 +141,7 @@
 
 <body>
     <div class="tabs">
-        <li class="tab active"><a href="../home">Home</a></li>
-        <li class="tab"><a href="../leaderboard">Leaderboard</a></li>
-        <li class="tab"><a href="../myaccount">My Account</a></li>x
+        <li class="tab"><a href="../home">Go Back To Home Page</a></li>
     </div>
     <div class="m-5">
         <p class="menu-title">Looking for <i>{{tag}}</i>?</p>
@@ -155,7 +159,7 @@
                 </div>
                 <div class="meal-tags">
                     {% for tag in meal.tags.all %}
-                    <button type="button" class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-green-400 border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag">{{ tag }}</button>
+                    <button type="button" class="meal-tag">{{ tag }}</button>
                     {% endfor %}
                 </div>
                 <div class="meal-price">
