@@ -1,8 +1,7 @@
 <html>
-    {% load static %}
     <head>
         <title>Order Confirmed</title>
-        <script src="{% static 'dyanmicReserve.js' %}" defer></script>
+        <script src="dyanmicReserve.js" defer></script>
     </head>
     <body>
         <h1>Order Confirmed</h1>
@@ -19,4 +18,17 @@
 
         <a href="../../home/"><button>OK</button></a>
     </body>
+
 </html>
+
+<script type="text/javascript">
+    console.log('dynamic reserve happening')
+
+    socket = new WebSocket('ws://' + window.location.host + '/ws/dynamic/')
+    console.log(document.getElementById("meal_id").textContent)
+    socket.onopen = function(e) {
+        socket.send(JSON.stringify({
+            'message': document.getElementById("meal_id").textContent,
+        }));
+    };
+</script>
