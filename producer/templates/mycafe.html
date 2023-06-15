@@ -98,9 +98,9 @@
 <script type="text/javascript">
   console.log('dynamic mycafe happening');
 
-  socket = new WebSocket('wss://' + window.location.host + '/ws/dynamicMycafe/');
+  socket = new WebSocket((window.location.protocol === 'https:' ? 'wss' : 'ws') + '://' + window.location.host + '/ws/dynamicMycafe/');
 
-socket.onmessage = function(e) {
+  socket.onmessage = function(e) {
     console.log('Meal_id Reserved: ' + e.data);
     // console.log(typeof e.data)
     const meal_id = JSON.parse(e.data).message
