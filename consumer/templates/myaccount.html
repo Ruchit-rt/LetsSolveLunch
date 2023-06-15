@@ -29,14 +29,36 @@
             float:left;
         }
 
+        .left-order-section {
+            width: 50%;
+            height: auto;
+            font-size: medium;
+            text-align: left;
+            float:left;
+        }
+
+        .right-order-section {
+            width: 50%;
+            height: auto;
+            font-size: medium;
+            text-align: right;
+            float: right;
+        }
+
         .right-section {
             width: 50%;
             text-align: right;
             float: right;
         }
 
+
         .inner-section {
             margin: 20px 0;
+        }
+
+
+        .inner-order-section {
+            margin: 40px 0 20px 0; 
         }
 
         .view-all-orders-button {
@@ -48,6 +70,7 @@
             padding: 5px 20px;
             font-weight: 500;
             border-radius: 10px;
+            width: 80%;
         }
 
         .view-all-orders-button:hover {
@@ -70,7 +93,7 @@
             <p class="section-header">Loyalty Points</p>
             <p class="loyalty-points">{{points}}</p>
         </div>
-        {% if reservation %}
+        {% if reservation_present %}
         <div class="my-account-section">
             <div class="inner-section">
                 <p class="section-header">Last Order</p>
@@ -84,17 +107,28 @@
                     <p class="general-text"> #{{reservation.order_no}} </p>
                 </div>
             </div>
-            <div class="inner-section">
-                <p class="order-history-link"> <a href="../order_history">
-                    <button class="view-all-orders-button">View all orders</button></a></p>
+            <div class="inner-order-section" style="overflow:auto">
+                <div class="left-order-section">
+                    <p class="order-history-link"> 
+                        <a href="../order_history">
+                            <center>
+                            <button class="view-all-orders-button">View all orders</button>
+                        </center>
+                        </a>
+                </p>
+                </div>
+                <div class="right-order-section">
+                    <p class="order-history-link">
+                        <a href="../last_order?order_no={{reservation.order_no}}">
+                            <center>
+                                <button class="view-all-orders-button">Get QR-code</button>
+                            </center>
+                            
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
-        <form action='last_order' method="POST">
-            {% csrf_token %}
-        <p> <b>Last Order: </b> <button type="submit" name="submit" value="{{order_no}}"
-            class="btn btn-primary" id="submit-id-update">{{meal_name}} ({{order_no}})</button></p>
-        </form>
-        {% else %}
         {% endif %}
         <div class="logout-button-section">
             <a href="../../">

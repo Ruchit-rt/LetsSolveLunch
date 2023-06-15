@@ -39,13 +39,9 @@ def home_view(request):
     return render(request, 'home.html', context)
 
 def last_order_view(request):
-    if request.POST.get('submit', None):
-        order_no = (request.POST.get('submit'))
-        reservation = Reservation.objects.get(order_no=order_no)
-        return render(request, 'last_order.html', {'reservation': reservation})
-    else:
-        return render(request, 'last_order.html')
-
+    order_no = request.GET.get('order_no')
+    reservation = Reservation.objects.get(order_no=order_no)
+    return render(request, 'last_order.html', {'reservation': reservation})
 
 
 def emailsent_view(request : WSGIRequest):
