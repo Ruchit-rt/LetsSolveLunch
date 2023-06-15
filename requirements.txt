@@ -4,6 +4,7 @@ async-timeout==4.0.2
 attrs==23.1.0
 autobahn==23.1.2
 Automat==22.10.0
+backports.zoneinfo==0.2.1;python_version<"3.9"
 cffi==1.15.1
 channels==3.0.5
 channels-redis==3.4.1
@@ -22,7 +23,9 @@ Pillow==9.5.0
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
 pycparser==2.21
+pypng==0.20220715.0
 pyOpenSSL==23.2.0
+qrcode==7.4.2
 service-identity==23.1.0
 six==1.16.0
 sqlparse==0.4.4
