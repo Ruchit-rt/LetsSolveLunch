@@ -1,6 +1,6 @@
 <html>
 <head>
-    {% include 'navbar.html' %}
+    {% include 'producer_navbar.html' %}
     {% include 'general_styles.html' %}
     <script src='https://cdn.tailwindcss.com'></script>
     <style>
@@ -32,6 +32,7 @@
             width: 100%;
             margin: 0;
             text-align: center;
+            margin-bottom: 10px;
         }
 
         .meal-item {
@@ -62,7 +63,7 @@
             color: #000000; 
             float: left;
             width: 100%;
-            margin: 0 0 50px 0;
+            margin: 0 0 20px 0;
             text-align: center;
         }
 
@@ -84,7 +85,7 @@
 
         .meal-image-section {
             width: 100%;
-            height: 100%;
+            height: 80%;
         }
 
         .button-section {
@@ -117,14 +118,14 @@
             position: absolute;
         }
 
-        .add-item-button {
+        .edit-item-button {
             background-color: #3b3b3b;
             border: none;
             color: white;
             text-decoration: none;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            width: 100%;
+            width: 90%;
             height: 80%;
             font-size: 16px;
             cursor: pointer;
@@ -132,9 +133,34 @@
             border-radius: 10px;
             bottom: 0;
             position: absolute;
+            vertical-align: middle;
+            left: 5%;
         }
 
-        .reserve-button:hover {
+        .edit-item-button:hover {
+            background-color: #6B9165;
+        }
+
+        .delete-button {
+            background-color: #3b3b3b;
+            border: none;
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            width: 90%;
+            height: 80%;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            border-radius: 10px;
+            bottom: 0;
+            position: absolute;
+            vertical-align: middle;
+            left: 5%;
+        }
+
+        .delete-button:hover {
             background-color: #6B9165;
         }
 
@@ -147,10 +173,16 @@
         .meal-tag {
             cursor: default;
             border-radius: 10px;
+            background-color: rgb(22 163 74) !important;
+            border: none;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            padding: 8px 18px;
+            font-size: 15px;
         }
 
         .add-item-button {
-            background-color: #6B9165;
+            background-color: #020B4A !important;
             border: none;
             color: white;
             text-decoration: none;
@@ -159,10 +191,15 @@
             width: 100%;
             font-size: 16px;
             cursor: pointer;
+            padding: 10px 0;
             display: block;
             border-radius: 10px;
             bottom: 0;
             position: absolute;
+        }
+
+        .add-item-button:hover {
+            opacity: 0.8;
         }
 
         .add-item-div {
@@ -171,49 +208,72 @@
             width: 100%;
             height: 7%;
         }
+
+        .left-section {
+            width: 50%;
+            height: 100%;
+            float: left;
+            position: relative;
+            text-align: center;
+        }
+    
+        .right-section {
+            width: 50%;
+            height: 100%;
+            float: right;
+            position: relative;
+            text-align: center;
+        }
     </style>
 </head>
-<body>
+<body style="padding-bottom: 30px">
     <div class="tabs">
-        <li class="tab active"><a href=".">Menu</a></li>
+        <li class="tab navbar-active"><a href=".">Menu</a></li>
         <li class="tab"><a href = "../checkout">Checkout</a></li>
         <li class="tab"><a href="../mycafe">My Cafe</a></li>
     </div>
     <div class="main-page">
-        <p class="menu-title">{{ restaurant_name }}</p>
+        <div class="menu-title">{{ restaurant_name }}</div>
         <div class="all-meal-items">
-            {% for meal in meals %}<br><br><br>
+            {% for meal in meals %}<br><br>
             <div class="meal-item">
                 <div class="meal-text-section">
                     <div class="meal-title">{{ meal.name }}</div>
-                        <div class="meal-description">
-                            {{ meal.description }}
-                        </div>
-                        <div class="meal-tags">
-                            {% for tag in meal.tags.all %}
-                            <button type="button" class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-white border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag">{{ tag }}</button>
-                            {% endfor %}
-                        </div>
-                        <div class="meal-price">Student Price: £{{ meal.price_student }}</div>
-                        <div class="meal-price">Staff  Price: £{{ meal.price_staff }}</div>
-                        <a href = "../edit_menu/?edit={{meal.meal_id}}"><button type="submit" name="edit"
-                            class="btn btn-secondary">Edit</button></a>
-                        <form action='../displaymenu/' method="POST">
+                    <div class="meal-description">
+                        {{ meal.description }}
+                    </div>
+                    <div class="meal-tags">
+                        {% for tag in meal.tags.all %}
+                        <button type="button" class="meal-tag">{{ tag }}</button>
+                        {% endfor %}
+                    </div>
+                    <div class="meal-price">Student Price: £{{ meal.price_student }}</div>
+                    <div class="meal-price">Staff  Price: £{{ meal.price_staff }}</div>
+                            {% comment %} <a href = "../edit_menu/?edit={{meal.meal_id}}">
+                                <button type="submit" name="edit"
+                                class="btn btn-secondary">Edit
+                                 </button>
+                            </a> {% endcomment %}
+                        {% comment %} <form action='../displaymenu/' method="POST">
                             {% csrf_token %}
                             <p> <button type="delete" name="delete" value="{{meal.meal_id}}"
                                 class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-white border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag" id="submit-id-update">Delete</button></p>
-                            </form>
+                            </form> {% endcomment %}
                     </div>
                     <div class="meal-image-button-section">
                         <div class="meal-image-section">
-                        {% if meal.picture %}
-                        <img class="meal-image" src="{{ meal.picture.url }}">
-                        {% endif %}
+                            {% if meal.picture %}
+                            <img class="meal-image" src="{{ meal.picture.url }}">
+                            {% endif %}
+                        </div>
+                        <div class="button-section">
+                            <div class="left-section"><button class="edit-item-button">Edit</button></div>
+                            <div class="right-section"><button class="delete-button">Delete</button></div>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
-        </div>
+            </div>
             <br>
             <div class="add-item-div">
                 <a href = "../addmenu">

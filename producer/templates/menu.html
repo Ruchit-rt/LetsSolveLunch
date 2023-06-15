@@ -1,25 +1,106 @@
+<html>
+    <head>
+        {% include 'general_styles.html' %}
+        {% include 'producer_navbar.html' %}
+        <style>
+            .text-input {
+                width: 100%;
+                border-radius: 10px;
+                border: 1px solid #111;
+            }
 
-<center>
-    <h1> Add item  </h1>
-    <br/><br/>
-    
+            .submit-button {
+                background-color: #4CAF50 !important;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 50%;
+            }
+            
+            .form-field-wrapper {
+            }
+
+            .form-label-wrapper {
+                text-align: right;
+                margin-right: 10px;
+            }
+
+            .left-section {
+                width: 50%;
+                float: left;
+                position: relative;
+                vertical-align: middle;
+            }
+        
+            .right-section {
+                width: 50%;
+                float: right;
+                vertical-align: middle;
+            }
+
+            .form-field-label-wrapper {
+                width: 100%;
+                display: inline-block;
+                margin-bottom: 10px;
+                position: relative;
+            }
+
+            .submit-button-section {
+                text-align: center;
+            }
+
+            .form-wrapper {
+                position: relative;
+
+            }
+
+            .main-header-section {
+                margin-bottom: 20px;
+            }
+        </style>
+        <script src='https://cdn.tailwindcss.com'></script>
+        <title> Add Item </title>
+    </head>
     {% if submitted %}
-    
-    Your Menu was Submitted Successfully
-    
+        Your Menu was Submitted Successfully
     {% else %}
-    
-    <form action = "" method = POST 
-    enctype = "multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Submit">
-    </form>
-
+    <body>
+        <div class="tabs">
+            <li class="tab"><a href="../displaymenu">Go Back To Menu Display Page</a></li>
+        </div>
+                <div class="main-page">
+            <div class="main-header-section">
+                <p class="main-header">Add New Menu Item</p>
+            </div>
+            <div class="form-wrapper"> 
+                <form action="" method="POST" enctype = "multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-field-label-wrapper">
+                            <div class="left-section">
+                                <div class="form-label-wrapper">
+                                    {{ field.label_tag }}
+                                </div>
+                            </div>
+                            <div class="right-section">
+                                <div class="form-field-wrapper">
+                                    {{ field.errors }}
+                                    {{ field }}
+                                    {% comment %} {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %} {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="submit-button-section">
+                        <button class="submit-button" type="submit"> Submit </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
     {% endif %}
-    <div>
-        <a href="../displaymenu"> Menu</a> &nbsp; &nbsp; &nbsp;
-        <a href = '../checkout'>Checkout</a> &nbsp; &nbsp; &nbsp;
-        <a href="../mycafe">My Cafe</a>
-    </div>
-</center>
+</html>

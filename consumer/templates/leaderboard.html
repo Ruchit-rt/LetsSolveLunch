@@ -1,109 +1,88 @@
 <html>
 <head>
-  {% include 'navbar.html' %}
-  {% include 'general_styles.html' %}
-  <style>
-    th:first-of-type {
-      border-top-left-radius: 10px;
-    }
-    th:last-of-type {
-      border-top-right-radius: 10px;
-    }
-    tr:last-of-type td:first-of-type {
-      border-bottom-left-radius: 10px;
-    }
-    tr:last-of-type td:last-of-type {
-      border-bottom-right-radius: 10px;
-    }
-
-    .leaderboard-table {
-      border-collapse: separate;
-      width: 100%;
-      border-spacing: 0;
-      margin: 0 auto;
-      max-width: 600px;
-    }
-
-    table tr th,
-    table tr td {
-      border-right: 1px solid #bbb;
-      border-bottom: 1px solid #bbb;
-      padding: 5px;
-    }
-
-    table tr th:first-child,
-    table tr td:first-child {
-      border-left: 1px solid #bbb;
-    }
-    table tr th {
-      background: #eee;
-      text-align: left;
-      border-top: solid 1px #bbb;
-    }
-
-    /* top-left border-radius */
-    table tr:first-child th:first-child {
-      border-top-left-radius: 6px;
-    }
-
-    /* top-right border-radius */
-    table tr:first-child th:last-child {
-      border-top-right-radius: 6px;
-    }
-
-    /* bottom-left border-radius */
-    table tr:last-child td:first-child {
-      border-bottom-left-radius: 6px;
-    }
-
-    /* bottom-right border-radius */
-    table tr:last-child td:last-child {
-      border-bottom-right-radius: 6px;
-    }
-  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src='https://cdn.tailwindcss.com'></script>
+  {% include 'consumer_navbar.html' %}
+  {% include 'general_styles.html' %}
+  {% include 'link_style.html' %}
+  {% include 'leaderboard_tabs.html' %}
+  {% include 'leaderboard_table_styles.html' %}
+  
 </head>
 <body>
   <div class="tabs">
     <li class="tab"><a href="../home">Home</a></li>
-    <li class="tab active"><a href="../leaderboard">Leaderboard</a></li>
+    <li class="tab navbar-active"><a href="../leaderboard">Leaderboard</a></li>
     <li class="tab"><a href="../myaccount">My Account</a></li>
   </div>
   <div class="main-page" style="text-align: center">
-    <p class="main-header">Green Heroes</p>
-    <table class="leaderboard-table">
-      <thead>
-      <tr>
-        <th><b><i>Rank</i></b></th>
-        <th><b><i>Name</i></b></th>
-        <th><b><i>Department</i></b></th>
-        <th><b><i>Points</i></b></th>
-      </tr>
-      </thead>
-        {% for r, n, p , d, e in LUnique %}
-        {% if e == current_customer_email %}
-        <tr>
-          <td><b>{{r}}</b></td>
-          <td><b>{{n}}</b></td>
-          <td><b>{{d}}</b></td>
-          <td><b>{{p}}</b></td>
-        </tr>
-        {% else %}
-            <tr>
-                <td>{{r}}</td>
-                <td>{{n}}</td>
-                <td>{{d}}</td>
-                <td>{{p}}</td>
-            </tr>
-         {% endif %}
-         {% endfor %}
-  </table>
-  
-  
-  <br>
-    <a href="../departmentLeaderBoard">Department LeaderBoard</a>
-
-    <br><br>
+    <div class="header-section"><p class="main-header">Green Heroes</p></div>
+    <div class="leaderboard-tabs-wrapper">
+      <ul class="nav nav-tabs nav-tabs-changes" role="tablist">
+        <li class="leaderboard-tab active"><a id="individual-tab" class="nav-link" data-toggle="tab" href="#individual" aria-controls="individual" aria-selected="true">Individual</a></li>
+        <li class="leaderboard-tab"><a id="department-tab" class="nav-link" data-toggle="tab" href="#department" aria-controls="department" aria-selected="false">Department</a></li>
+      </ul>
+      <div class="tab-content tab-content-changes">
+        <div id="individual" class="tab-pane fade in active" role="tabpanel" aria-labelledby="individual-tab">
+          <table class="leaderboard-table">
+            <thead>
+              <tr style="padding-top: 100px">
+                <th><b>Rank</b></th>
+                <th><b>Name</b></th>
+                <th><b>Department</b></th>
+                <th><b>Points</b></th>
+              </tr>
+            </thead>
+            {% for r, n, p , d, e in LIndiUnique %}
+              {% if e == current_customer_email %}
+                <tr>
+                  <td><b>{{r}}</b></td>
+                  <td><b>{{n}}</b></td>
+                  <td><b>{{d}}</b></td>
+                  <td><b>{{p}}</b></td>
+                </tr>
+              {% else %}
+                  <tr>
+                    <td>{{r}}</td>
+                    <td>{{n}}</td>
+                    <td>{{d}}</td>
+                    <td>{{p}}</td>
+                  </tr>
+              {% endif %}
+            {% endfor %}
+          </table>
+        </div>
+        <div id="department" class="tab-pane fade in" role="tabpanel" aria-labelledby="department-tab">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th><b>Rank</b></th>
+                <th><b>Department</b></th>
+                <th><b>Points</b></th>
+              </tr>
+            </thead>
+            {% for r, d, p in LDeptUnique %}
+              {% if d == current_department %}
+                <tr>
+                  <td><b>{{r}}</b></td>
+                  <td><b>{{d}}</b></td>
+                  <td><b>{{p}}</b></td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td>{{r}}</td>
+                  <td>{{d}}</td>
+                  <td>{{p}}</td>
+                </tr>
+              {% endif %}   
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+    <br>
     <p class="general-text">
       For every 15 meals reserved, <b>YOU</b> help us save 1 plate of
     wasted food. Thank you for helping us create a green ecosystem at school.

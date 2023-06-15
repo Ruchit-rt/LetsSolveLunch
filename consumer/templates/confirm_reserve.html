@@ -1,23 +1,41 @@
 <html>
     <head>
+        {% include 'link_style.html' %}
+        {% include 'general_styles.html' %}
+        {% include 'consumer_popup.html' %}
         <title>Confirmation</title>
     </head>
     <body>
-        <h1>Confirm reservation?</h1>
-        <p>Are you sure you want to reserve {{ meal_name }} at {{ meal_location.name }}?</p>
-        <div> 
-            <form action="../reserve_success/" id="reserve{{ meal_id }}" method="POST">
-                {% csrf_token %}
-                <button name="meal_id" value="{{ meal_id }}" type="submit">
-                    Yes
-                </button>
-            </form>
-            <a href="../restaurant_menu?restaurant={{ meal_location.name }}">
-                <button> No </button>
-            </a>
-        </div>
-
-        
-
+        <div class="popup-background">
+            <div class="main-page">
+                <div class="centrize">
+                    <div class="popup">
+                        <div>
+                            <p class="main-header popup-header">Confirm reservation?</p>
+                        </div>
+                        <div>
+                            <p class="general-text popup-general-text">Are you sure you want to reserve {{ meal_name }} at {{ meal_location.name }}?</p>
+                        </div>
+                        <div> 
+                            <div class="left-section">
+                                <form class="width:100%" action="../reserve_success/" id="reserve{{ meal_id }}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="select-button green-button" name="meal_id" value="{{ meal_id }}" type="submit">
+                                        Yes 
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="right-section">
+                                <a href="../restaurant_menu?restaurant={{ meal_location.name }}">
+                                    <button class="select-button red-button">
+                                        No
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div> 
     </body>
 </html>

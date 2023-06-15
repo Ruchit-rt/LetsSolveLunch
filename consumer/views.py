@@ -35,6 +35,7 @@ def home_view(request):
             tags[tag] = ""
 
     context['tags'] = list(tags.keys())
+    context['customer_name'] = Customer.objects.get(email=request.session.get('user_email')).name
     return render(request, 'home.html', context)
 
 def last_order_view(request):
@@ -119,13 +120,11 @@ def myaccount_view(request : WSGIRequest):
     context["discount"] = int(150 - ((customer.loyalty_points % 150)//7))
 
     if (len(reservations) > 0):
-        reservation : Reservation = reservations.last() 
-        meal : Meal = reservation.meal   
-        context["reservation"] = True
-        context["order_no"] = reservation.order_no
-        context["meal_name"] = meal.name
+        reservation : Reservation = reservations.last()
+        context["reservation_present"] = True
+        context["reservation"] = reservation
     else:
-        context["reservation"] = False
+        context["reservation_present"] = False
     context['customer_name'] = customer.name
     return render(request, 'myaccount.html', context)
 
@@ -159,10 +158,18 @@ def leaderboard_view(request):
     loyalty_points = map(lambda x: x.loyalty_points,  customers)
     departments = map(lambda x: x.department,  customers)
     emails = map(lambda x: x.email,  customers)
-    context['LUnique'] = zip(ranks, names, loyalty_points, departments ,emails)
+    context['LIndiUnique'] = zip(ranks, names, loyalty_points, departments ,emails)
+    
+    dpt_departments = Customer.objects.values('department').annotate(Sum('loyalty_points')).order_by('-loyalty_points__sum')
+    dpt_ranks = list(range(1,len(dpt_departments) + 1))
+    dpt_depts = [d['department'] for d in dpt_departments]
+    dpt_loyalty_points = [round(d["loyalty_points__sum"], 2) for d in dpt_departments]
+    context['LDeptUnique'] = zip(dpt_ranks, dpt_depts, dpt_loyalty_points)
+    context['current_department'] = Customer.objects.get(email=request.session['user_email']).department
 
     context['current_customer_email'] = Customer.objects.get(email=request.session['user_email']).email
     return render(request, 'leaderboard.html', context)
+
 
 def departmentLeaderBoard_view(request):
     context = dict()
