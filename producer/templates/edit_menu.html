@@ -1,25 +1,32 @@
-<center>
-    <h1> Edit item  </h1>
-    <br/><br/>
-    
-    {% if submitted %}
-    
-    Your Menu was Submitted Successfully
-    
-    {% else %}
-    
-    <form action = "" method = POST 
-    enctype = "multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Update">
-    </form>
-
-    {% endif %}
-    <div>
-        <a href="../displaymenu"> Menu</a> &nbsp; &nbsp; &nbsp;
-        <a href = '../checkout'>Checkout</a> &nbsp; &nbsp; &nbsp;
-        <a href="../mycafe">My Cafe</a>
-    </div>
-</center>
-{% comment %} ./?edit={{meal.meal_id}} {% endcomment %}
+<html>
+    <head>
+        <title>Edit Item</title>
+    </head>
+    <body>
+        <center>
+            <h1> Edit item  </h1>
+            <br/><br/>
+            
+            {% if submitted %}
+            
+            Your Menu was Submitted Successfully
+            
+            {% else %}
+            
+            <form action = "" method = POST 
+            enctype = "multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="Update">
+            </form>
+        
+            {% endif %}
+            <div>
+                <a href="../displaymenu"> Menu</a> &nbsp; &nbsp; &nbsp;
+                <a href = '../checkout'>Checkout</a> &nbsp; &nbsp; &nbsp;
+                <a href="../mycafe">My Cafe</a>
+            </div>
+        </center>
+        {% comment %} ./?edit={{meal.meal_id}} {% endcomment %}
+    </body>
+</html>>
