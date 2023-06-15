@@ -6,6 +6,7 @@ from .forms import MealForm
 from django.http import HttpResponseRedirect
 from main.models import Customer, Meal, Reservation, Restaurant
 from django.core.handlers.wsgi import WSGIRequest
+from django.forms.models import model_to_dict
 
 def mycafe_view(request):
     if request.method == "POST":
@@ -21,6 +22,11 @@ def mycafe_view(request):
     return render(request, 'mycafe.html', context)
 
 def menu_view(request):
+    if request.method == "POST":
+        if request.POST.get("delete"):
+            delete_item_id = request.POST.get("delete")
+            Meal.objects.filter(meal_id = delete_item_id).delete()
+            print(delete_item_id)
     producer_email = request.session["producer_email"]
     restaurant = Restaurant.objects.get(email=producer_email)
     all_meals = Meal.objects.filter(restaurant = restaurant)
@@ -29,6 +35,18 @@ def menu_view(request):
         "restaurant_name": restaurant.name
     }
     return render(request, 'displaymenu.html', context)
+
+def edit_menu_view(request):
+    edit_item_id = request.GET.get("edit")
+    old_meal = Meal.objects.get(meal_id=edit_item_id)
+
+    form = MealForm(request.POST or None, request.FILES, instance=old_meal)
+    context = {
+        'form':form, 
+        'meal': old_meal
+    }
+
+    return render(request, 'edit_menu.html', context)
 
 def add_menu_view(request):
     submitted = False

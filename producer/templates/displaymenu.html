@@ -195,7 +195,17 @@
                             {% endfor %}
                         </div>
                         <div class="meal-price">Student Price: £{{ meal.price_student }}</div>
-                        <div class="meal-price">Staff  Price: £{{ meal.price_staff }}</div>  
+                        <div class="meal-price">Staff  Price: £{{ meal.price_staff }}</div>
+                        <form action='../edit_menu/' method="GET">
+                            {% csrf_token %}
+                            <button type="edit" name="edit" value="{{meal.meal_id}}"
+                             class="btn btn-secondary">Edit</button>
+                         </form>
+                        <form action='../displaymenu/' method="POST">
+                            {% csrf_token %}
+                            <p> <button type="delete" name="delete" value="{{meal.meal_id}}"
+                                class="px-4 py-2 text-sm font-small text-gray-900 text-gray-900 bg-white border-t border-gray-200 focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:text-white meal-tag" id="submit-id-update">Delete</button></p>
+                            </form>
                     </div>
                     <div class="meal-image-button-section">
                         <div class="meal-image-section">
