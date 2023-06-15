@@ -4,6 +4,7 @@
     {% include 'consumer_navbar.html' %}
     {% include 'general_styles.html' %}
     {% include 'logout_button.html' %}
+    {% include 'link_style.html' %}
     <script src='https://cdn.tailwindcss.com'></script>
     <style>
         .my-account-section {
@@ -13,22 +14,13 @@
             padding: 20px 50px;
             margin: 20px 0;
             overflow: auto;
-            border: 2px solid #E5E5E5;
-        }
-
-        .order-history-link {
-            font-family: Montserrat, sans-serif;
-            font-style: italic;
-            font-weight: 100;
-            font-size: 20px;
-            text-transform: uppercase;
-            color: #7203FF;
+            border: 2px solid #222222;
         }
 
         .loyalty-points {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 50px;
-            font-weight: 500;
+            font-size: 70px;
+            font-weight: 400;
         }
 
         .left-section {
@@ -45,6 +37,21 @@
 
         .inner-section {
             margin: 20px 0;
+        }
+
+        .view-all-orders-button {
+            background: #020B4A;
+            font-family: Montserrat, sans-serif;
+            font-weight: 100;
+            font-size: 20px;
+            color: white;
+            padding: 5px 20px;
+            font-weight: 500;
+            border-radius: 10px;
+        }
+
+        .view-all-orders-button:hover {
+            opacity: 0.8;
         }
     </style>
 
@@ -70,14 +77,16 @@
             </div>
             <div class="inner-section" style="overflow:auto">
                 <div class="left-section">
-                    <p class="general-text">{{meal_name}} </p>
+                    <p class="general-text"><b>{{reservation.meal.name}}</b></p>
+                    <p class="general-text">{{reservation.meal.restaurant.name}} (£{{reservation.meal.price_student}})</p>
                 </div>
                 <div class="right-section">
-                    <p class="general-text"> #{{order_no}} </p>
+                    <p class="general-text"> #{{reservation.order_no}} </p>
                 </div>
             </div>
             <div class="inner-section">
-                <p class="order-history-link"> <a href="../order_history">View all orders</a></p>
+                <p class="order-history-link"> <a href="../order_history">
+                    <button class="view-all-orders-button">View all orders</button></a></p>
             </div>
         </div>
         {% else %}

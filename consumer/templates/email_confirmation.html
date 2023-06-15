@@ -1,13 +1,20 @@
 <html>
     <head>
+        {% include 'general_styles.html' %}
+        {% include 'consumer_popup.html' %}
         <title>Email Confirmation</title>
     </head>
     <body>
-        <h1>Email Confirmation</h1>
-        <p>Email confirmation has been sent to {{email}} </p>
-        <br>
-        <br>
-
-        <a href="../../"><button>OK</button></a>
+        <div class="popup-background">
+            <div class="main-page">
+                <div class="centrize">
+                    <div class="popup" style="padding: 10px 40px !important">
+                        <p class="main-header popup-header">Email Confirmation</p>
+                        <p class="general-text popup-general-text">Email confirmation has been sent to {{email}} </p>
+                        <a href="../../"><button class="select-button green-button">OK</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

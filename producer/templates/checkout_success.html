@@ -1,10 +1,20 @@
 <html>
     <head>
+        {% include 'producer_popup.html' %}
+        {% include 'general_styles.html' %}
         <title>Checkout Success</title>
     </head>
     <body>
-        <h1>Order Success</h1>
-        <p>{{points}} loyalty points were awarded. Thank you for your service!</p>
-        <a href="../checkout"><button>OK</button></a>
+        <div class="popup-background">
+            <div class="main-page">
+                <div class="centrize">
+                    <div class="popup" style="padding: 10px 40px !important">
+                        <p class="main-header">Order Success</p>
+                        <p class="general-text popup-">{{points}} loyalty points were awarded. Thank you for your service!</p>
+                        <a href="../checkout"><button class="select-button green-button">OK</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

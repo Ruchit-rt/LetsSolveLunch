@@ -95,12 +95,10 @@ def myaccount_view(request : WSGIRequest):
 
     if (len(reservations) > 0):
         reservation : Reservation = reservations.last()
-        meal : Meal = reservation.meal   
-        context["reservation"] = True
-        context["order_no"] = reservation.order_no
-        context["meal_name"] = meal.name
+        context["reservation_present"] = True
+        context["reservation"] = reservation
     else:
-        context["reservation"] = False
+        context["reservation_present"] = False
     context['customer_name'] = customer.name
     return render(request, 'myaccount.html', context)
 
