@@ -196,11 +196,8 @@
                         </div>
                         <div class="meal-price">Student Price: £{{ meal.price_student }}</div>
                         <div class="meal-price">Staff  Price: £{{ meal.price_staff }}</div>
-                        <form action='../edit_menu/' method="GET">
-                            {% csrf_token %}
-                            <button type="edit" name="edit" value="{{meal.meal_id}}"
-                             class="btn btn-secondary">Edit</button>
-                         </form>
+                        <a href = "../edit_menu/?edit={{meal.meal_id}}"><button type="submit" name="edit"
+                            class="btn btn-secondary">Edit</button></a>
                         <form action='../displaymenu/' method="POST">
                             {% csrf_token %}
                             <p> <button type="delete" name="delete" value="{{meal.meal_id}}"

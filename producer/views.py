@@ -1,12 +1,16 @@
+import decimal
 from datetime import datetime, timezone
 from decimal import Decimal
-import decimal
-from django.shortcuts import render
-from .forms import MealForm
-from django.http import HttpResponseRedirect
-from main.models import Customer, Meal, Reservation, Restaurant
+
 from django.core.handlers.wsgi import WSGIRequest
 from django.forms.models import model_to_dict
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
+
+from main.models import Customer, Meal, Reservation, Restaurant
+
+from .forms import MealForm
+
 
 def mycafe_view(request):
     if request.method == "POST":
@@ -37,16 +41,14 @@ def menu_view(request):
     return render(request, 'displaymenu.html', context)
 
 def edit_menu_view(request):
-    edit_item_id = request.GET.get("edit")
-    old_meal = Meal.objects.get(meal_id=edit_item_id)
-
-    form = MealForm(request.POST or None, request.FILES, instance=old_meal)
-    context = {
-        'form':form, 
-        'meal': old_meal
-    }
-
-    return render(request, 'edit_menu.html', context)
+    menu_id = request.GET.get("edit")
+    old_meal = Meal.objects.get(meal_id=menu_id)
+    form =  MealForm(request.POST or None, instance=old_meal)
+    if form.is_valid():
+        form.save()
+        return redirect('../displaymenu/')
+    print(menu_id)
+    return render(request, 'edit_menu.html', {'meal':old_meal, 'form': form})
 
 def add_menu_view(request):
     submitted = False
