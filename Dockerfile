@@ -30,4 +30,4 @@ RUN python manage.py migrate --fake main zero
 RUN python manage.py migrate --fake
 
 # run gunicorn
-CMD daphne drp.asgi:application ---port $PORT --bind 0.0.0.0
+CMD daphne drp.asgi:application --port $PORT --bind 0.0.0.0
