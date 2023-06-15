@@ -1,6 +1,5 @@
 <html>
 <head>
-    <script src="dynamicCafe.js" defer></script>
     {% include 'logout_button.html' %}
     {% include 'navbar.html' %}
     {% include 'general_styles.html' %}
@@ -99,7 +98,7 @@
 <script type="text/javascript">
   console.log('dynamic mycafe happening');
 
-  socket = new WebSocket('ws://' + window.location.host + '/ws/dynamicMycafe/');
+  socket = new WebSocket('wss://' + window.location.host + '/ws/dynamicMycafe/');
 
 socket.onmessage = function(e) {
     console.log('Meal_id Reserved: ' + e.data);
