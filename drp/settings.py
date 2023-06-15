@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'producer',
     'consumer',
     'taggit',
-    'channels',
 ]
 
 # CHANNEL_LAYERS = {
@@ -74,6 +74,7 @@ MIDDLEWARE = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://lsl-public.herokuapp.com'
+    'https://*.127.0.0.1'
 ]
 
 ROOT_URLCONF = 'drp.urls'
