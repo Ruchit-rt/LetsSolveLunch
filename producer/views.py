@@ -55,7 +55,7 @@ def add_menu_view(request):
     producer_email = request.session["producer_email"]
     restaurant = Restaurant.objects.get(email=producer_email)
     if request.method == "POST":
-        form = MealForm(request.POST, request.FILES, initial={'restaurant': restaurant})
+        form = MealForm(request.POST, request.FILES, initial={'number_of_reservations': 0, 'restaurant': restaurant})
         if form.is_valid():
             m_tags = form.cleaned_data['tags']
             # object.tags.add(*m_tags)

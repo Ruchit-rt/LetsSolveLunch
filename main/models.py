@@ -17,7 +17,7 @@ class Meal(models.Model):
     name                   = models.CharField(max_length=30)
     description            = models.CharField(max_length=200)
     picture                = models.ImageField(null=True, blank = True, upload_to="images/")
-    number_of_reservations = models.IntegerField()
+    number_of_reservations = models.IntegerField(default=0)
     price_staff            = models.DecimalField(max_digits=5, decimal_places=2)
     price_student          = models.DecimalField(max_digits=5, decimal_places=2)
     restaurant             = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=False)

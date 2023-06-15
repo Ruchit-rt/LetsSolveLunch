@@ -7,16 +7,14 @@ class MealForm(ModelForm):
     class Meta:
         model = Meal
         fields = ("meal_id","name","description","picture","number_of_reservations","price_staff","price_student", "restaurant", "tags")
-        exclude = ("restaurant",)
+        exclude = ("restaurant", "number_of_reservations")
         m_tags = TagField()
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'text-input'}),
             'description': forms.TextInput(attrs={'class': 'text-input'}),
-            'picture': forms.FileInput(attrs={'class': 'text-input'}),
-            'number_of_reservations': forms.NumberInput(attrs={'class': 'text-input'}),
+            'picture': forms.FileInput(),
             'price_staff': forms.NumberInput(attrs={'class': 'text-input'}),
             'price_student': forms.NumberInput(attrs={'class': 'text-input'}),
-            'restaurant': forms.Select(attrs={'class': 'text-input'}),
             'tags': forms.TextInput(attrs={'class': 'text-input'})
         }
