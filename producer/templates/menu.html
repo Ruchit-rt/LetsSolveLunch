@@ -7,14 +7,15 @@
                 width: 100%;
                 border-radius: 10px;
                 border: 1px solid #111;
+                padding: 0 10px;
             }
 
             .submit-button {
                 background-color: #4CAF50 !important;
                 color: white;
-                padding: 12px 20px;
+                padding: 8px 10px;
                 border: none;
-                border-radius: 4px;
+                border-radius: 10px;
                 cursor: pointer;
                 width: 50%;
             }
@@ -28,14 +29,14 @@
             }
 
             .left-section {
-                width: 50%;
+                width: 30%;
                 float: left;
                 position: relative;
                 vertical-align: middle;
             }
         
             .right-section {
-                width: 50%;
+                width: 70%;
                 float: right;
                 vertical-align: middle;
             }
@@ -51,9 +52,12 @@
                 text-align: center;
             }
 
+            .form-fields-wrapper {
+                margin-bottom: 20px;
+            }
+
             .form-wrapper {
                 position: relative;
-
             }
 
             .main-header-section {
@@ -77,24 +81,26 @@
             <div class="form-wrapper"> 
                 <form action="" method="POST" enctype = "multipart/form-data">
                     {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-field-label-wrapper">
-                            <div class="left-section">
-                                <div class="form-label-wrapper">
-                                    {{ field.label_tag }}
+                    <div class="form-fields-wrapper">
+                        {% for field in form %}
+                            <div class="form-field-label-wrapper">
+                                <div class="left-section">
+                                    <div class="form-label-wrapper">
+                                        {{ field.label_tag }}
+                                    </div>
+                                </div>
+                                <div class="right-section">
+                                    <div class="form-field-wrapper">
+                                        {{ field.errors }}
+                                        {{ field }}
+                                        {% comment %} {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                        {% endif %} {% endcomment %}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="right-section">
-                                <div class="form-field-wrapper">
-                                    {{ field.errors }}
-                                    {{ field }}
-                                    {% comment %} {% if field.help_text %}
-                                    <p class="help">{{ field.help_text|safe }}</p>
-                                    {% endif %} {% endcomment %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                     <div class="submit-button-section">
                         <button class="submit-button" type="submit"> Submit </button>
                     </div>

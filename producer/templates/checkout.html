@@ -41,6 +41,13 @@
         body {
             overflow: hidden;
         }
+
+        .qr-section {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 12px;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -51,7 +58,7 @@
     </div>
     <div class="centrize">
         <div class="main-page main-page-changes">
-            <div id="qr-reader" style="width: 600px"></div>
+            <div id="qr-reader" class="qr-section"></div>
             <form action="../checkout_result/" method="POST">
                 {% csrf_token %}
                 <div class="form__group">
