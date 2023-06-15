@@ -4,6 +4,7 @@
     </head>
     <body>
         <h1>Order Confirmed</h1>
+        <div style="visibility: hidden;" id="meal_id">{{ meal_id }}</div>
         <p>Your order number is #{{order_no}}. 
             Remember to use this code during checkout. </p>
         <form action='emailsent/' method="POST">
@@ -16,4 +17,17 @@
 
         <a href="../../home/"><button>OK</button></a>
     </body>
+
 </html>
+
+<script type="text/javascript">
+    console.log('dynamic reserve happening')
+
+    socket = new WebSocket((window.location.protocol === 'https:' ? 'wss' : 'ws') + '://' + window.location.host + '/ws/dynamic/')
+    console.log(document.getElementById("meal_id").textContent)
+    socket.onopen = function(e) {
+        socket.send(JSON.stringify({
+            'message': document.getElementById("meal_id").textContent,
+        }));
+    };
+</script>

@@ -79,10 +79,10 @@
                   <th><b>Reservations</b></th>
                 </tr>
             </thead>
-            {% for meal in items %}
+            {% for meal in meals %}
                 <tr>
                     <td>{{meal.name}}</td>
-                    <td>{{meal.number_of_reservations}}</td>
+                    <td id="numres{{meal.meal_id}}">{{meal.number_of_reservations}}</td>
                 </tr>
             {% endfor %}
         </table>
@@ -95,3 +95,20 @@
 
 </body>
 </html>
+<script type="text/javascript">
+  console.log('dynamic mycafe happening');
+
+  socket = new WebSocket((window.location.protocol === 'https:' ? 'wss' : 'ws') + '://' + window.location.host + '/ws/dynamicMycafe/');
+
+  socket.onmessage = function(e) {
+    console.log('Meal_id Reserved: ' + e.data);
+    // console.log(typeof e.data)
+    const meal_id = JSON.parse(e.data).message
+    console.log(meal_id)
+    var numres = document.getElementById("numres" + meal_id);
+    if (numres !== null) {
+        numres.textContent = (parseInt(numres.textContent) + 1).toString();
+    }
+};
+</script>
+

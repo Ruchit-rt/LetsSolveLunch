@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,21 @@ INSTALLED_APPS = [
     'taggit',
 ]
 
+# CHANNEL_LAYERS = {
+#     'default' : {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('localhost', 6379)],
+#         },
+#     }
+# }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
+
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +73,9 @@ MIDDLEWARE = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://lsl-public.herokuapp.com'
+    'https://lsl-public.herokuapp.com',
+    'https://pacific-coast-78888.herokuapp.com',
+    'https://*.127.0.0.1'
 ]
 
 ROOT_URLCONF = 'drp.urls'
@@ -65,7 +83,7 @@ ROOT_URLCONF = 'drp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +96,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'drp.wsgi.application'
+# WSGI_APPLICATION = 'drp.wsgi.application'
+ASGI_APPLICATION = 'drp.asgi.application'
+
 
 
 # Database

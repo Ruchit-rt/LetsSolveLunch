@@ -23,7 +23,7 @@
                 <p class="main-header">LetsSolveLunch</p>
 
                 <form action="consumer/home/" method="POST">
-                    {% csrf_token %}
+                   {% csrf_token %} 
                     <input type="email" name="user_email" placeholder="Email">
                     <button type="submit">Login as Customer</button>
                 </form>
