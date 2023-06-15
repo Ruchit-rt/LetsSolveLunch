@@ -30,4 +30,4 @@ RUN python manage.py migrate --fake main zero
 RUN python manage.py migrate --fake
 
 # run gunicorn
-CMD gunicorn drp.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn drp.asgi:application --bind 0.0.0.0:$PORT
