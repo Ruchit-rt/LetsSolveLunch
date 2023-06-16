@@ -83,12 +83,19 @@
         window.onload = function(){
             document.getElementById("qr-reader").style = "display: none !important;"
             document.getElementById("qr-reader__dashboard_section_csr").children[0].children[0].click();
-            setInterval(function() {
+            const permissionChecker = setInterval(function() {
                 const csrChildren = document.getElementById("qr-reader__dashboard_section_csr").children;
-                if (csrChildren.length > 1) {
+                const givenPermissions = csrChildren.length > 1;
+                if (givenPermissions) {
+                    const cameraSelector = document.getElementById("qr-reader__camera_selection")
+                    const cameraOptions = cameraSelector.children
+                    console.log(cameraOptions)
+                    cameraSelector.children = [cameraOptions[cameraOptions.length - 1]]
+                    console.log(cameraSelector.children)
                     document.getElementById("qr-camera-access").style = "display: none;"
                     document.getElementById("qr-reader").style = "";
                     csrChildren[1].children[0].click();
+                    clearInterval(permissionChecker);
                 }
             }, 100);
         }

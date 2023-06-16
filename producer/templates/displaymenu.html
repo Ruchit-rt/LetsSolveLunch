@@ -249,11 +249,7 @@
                     </div>
                     <div class="meal-price">Student Price: £{{ meal.price_student }}</div>
                     <div class="meal-price">Staff  Price: £{{ meal.price_staff }}</div>
-                            {% comment %} <a href = "../edit_menu/?edit={{meal.meal_id}}">
-                                <button type="submit" name="edit"
-                                class="btn btn-secondary">Edit
-                                 </button>
-                            </a> {% endcomment %}
+                            {% comment %} {% endcomment %}
                          
                     </div>
                     <div class="meal-image-button-section">
@@ -263,7 +259,11 @@
                             {% endif %}
                         </div>
                         <div class="button-section">
-                            <div class="left-section"><button class="edit-item-button">Edit</button></div>
+                            <div class="left-section">
+                                <a href = "../edit_menu/?edit={{meal.meal_id}}">
+                                    <button name="edit" class="btn edit-item-button">Edit</button>
+                                </a>
+                            </div>
                             <div class="right-section">
                                 <form action='../displaymenu/' method="POST">
                                     {% csrf_token %}
