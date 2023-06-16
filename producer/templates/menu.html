@@ -2,73 +2,41 @@
     <head>
         {% include 'general_styles.html' %}
         {% include 'producer_navbar.html' %}
+        {% include 'menu_form_styles.html' %}
+        {% include 'producer_popup.html' %}
         <style>
-            .text-input {
-                width: 100%;
-                border-radius: 10px;
-                border: 1px solid #111;
-                padding: 0 10px;
+            .popup-changes {
+                max-width: 450px;
+                max-height: 250px;
             }
 
-            .submit-button {
-                background-color: #4CAF50 !important;
-                color: white;
-                padding: 8px 10px;
-                border: none;
-                border-radius: 10px;
-                cursor: pointer;
-                width: 50%;
-            }
-            
-            .form-field-wrapper {
+            .main-header-changes {
+                margin: 20px 0;
             }
 
-            .form-label-wrapper {
-                text-align: right;
-                margin-right: 10px;
-            }
-
-            .left-section {
-                width: 30%;
-                float: left;
-                position: relative;
-                vertical-align: middle;
-            }
-        
-            .right-section {
-                width: 70%;
-                float: right;
-                vertical-align: middle;
-            }
-
-            .form-field-label-wrapper {
-                width: 100%;
-                display: inline-block;
-                margin-bottom: 10px;
-                position: relative;
-            }
-
-            .submit-button-section {
-                text-align: center;
-            }
-
-            .form-fields-wrapper {
-                margin-bottom: 20px;
-            }
-
-            .form-wrapper {
-                position: relative;
-            }
-
-            .main-header-section {
-                margin-bottom: 20px;
+            .popup-general-text-changes {
+                margin: 10px 0;
             }
         </style>
         <script src='https://cdn.tailwindcss.com'></script>
         <title>Menu</title>
     </head>
     {% if submitted %}
-        Your Menu was Submitted Successfully
+    <body>
+        <div class="popup-background">
+            <div class="main-page">
+                <div class="centrize">
+                    <div class="popup popup-changes" style="padding: 10px 40px !important">
+                        <div class="main-header main-header-changes">Add Item Success</div>
+                        <div class="general-text popup-general-text popup-general-text-changes">Your menu item was added successfully</div>
+                        <div class="button-section">
+                        <a href="../displaymenu"><button class="select-button green-button">OK</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
     {% else %}
     <body>
         <div class="tabs">

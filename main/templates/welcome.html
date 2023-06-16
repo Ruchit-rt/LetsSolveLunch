@@ -1,7 +1,14 @@
 <html>
     <head>
         <title>LetsSolveLunch</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src='https://cdn.tailwindcss.com'></script>
         {% include 'general_styles.html' %}
+        {% include 'leaderboard_tabs.html' %}
+        {% include 'link_style.html' %}
+        {% include 'consumer_popup.html' %}
         <style>
             body {
                 margin: 0;
@@ -15,24 +22,95 @@
                 align-items: center;
                 justify-content: center;
             }
+
+            .login-button {
+                background-color: #225522 !important;
+                box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.16) !important;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                border-radius: 10px;
+                width: 50%;
+            }
+
+            .login-button:hover {
+                opacity: 0.8;
+            }
+            
+            .email-text-input {
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.16) !important;
+                padding: 10px;
+                font-size: 16px;
+                margin: 10px;
+                width: 50%;
+                text-align: center;
+            }
+
+            .main-tabs-wrapper {
+                border: 1px solid #ccc;
+                border-radius: 10px;
+            }
+
+            .login-wrapper {
+                padding: 20px;
+                background-color: #4CAF50;
+            }
+
+            .main-header-changes {
+                margin: 10px 0 30px 0 !important;
+                text-transform: none !important;
+            }
+
+            .popup-changes {
+                max-width: 550px !important;
+                max-height: 550px !important;
+                padding: 30px !important;
+            }
         </style>
     </head>
     <body>
-        <div class="main-page centrize">
-            <div>
-                <p class="main-header">LetsSolveLunch</p>
-
-                <form action="consumer/home/" method="POST">
-                   {% csrf_token %} 
-                    <input type="email" name="user_email" placeholder="Email">
-                    <button type="submit">Login as Customer</button>
-                </form>
-
-                <form method="POST" action="producer/mycafe/">
-                    {% csrf_token %}
-                    <input type="email" name="producer_email" placeholder="Email">
-                    <button type="submit">Login as Producer</button>
-                </form>
+        <div class="popup-background popup-background-changes">
+            <div class="centrize">
+                <div class="main-page">
+                    <div class="popup popup-changes">
+                        <div class="main-header main-header-changes">Lets Solve Lunch!</div>
+                        <div class="main-tabs-wrapper">
+                            <ul class="nav nav-tabs nav-tabs-changes" role="tablist">
+                                <li class="leaderboard-tab active"><a id="consumer-tab" class="nav-link" data-toggle="tab" href="#consumer" aria-controls="consumer" aria-selected="true">Consumer</a></li>
+                                <li class="leaderboard-tab"><a id="admin-tab" class="nav-link" data-toggle="tab" href="#admin" aria-controls="admin" aria-selected="false">Admin</a></li>
+                            </ul>
+                            <div class="tab-content tab-content-changes">
+                                <div id="consumer" class="tab-pane fade in active" style="position: relative" role="tabpanel" aria-labelledby="consumer-tab">
+                                    <div class="login-wrapper">
+                                        <form action="consumer/home/" method="POST">
+                                            {% csrf_token %}
+                                            <div class="width:100%">
+                                                <input class="email-text-input" type="email" name="user_email" placeholder="Consumer Email">
+                                            </div>
+                                            <div>
+                                                <button class="login-button" type="submit">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="admin" class="tab-pane fade in" style="position: relative" role="tabpanel" aria-labelledby="admin-tab">
+                                    <div class="login-wrapper">
+                                        <form method="POST" action="producer/mycafe/">
+                                            {% csrf_token %}
+                                            <input class="email-text-input" type="email" name="producer_email" placeholder="Admin Email">
+                                            <button class="login-button" type="submit">Login</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

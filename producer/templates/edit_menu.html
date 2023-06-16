@@ -1,32 +1,51 @@
 <html>
     <head>
+        {% include 'general_styles.html' %}
+        {% include 'producer_navbar.html' %}
+        {% include 'menu_form_styles.html' %}
+        <script src='https://cdn.tailwindcss.com'></script>
         <title>Edit Item</title>
     </head>
-    <body>
-        <center>
-            <h1> Edit item  </h1>
-            <br/><br/>
-            
-            {% if submitted %}
-            
-            Your Menu was Submitted Successfully
-            
-            {% else %}
-            
-            <form action = "" method = POST 
-            enctype = "multipart/form-data">
-                {% csrf_token %}
-                {{form.as_p}}
-                <input type="submit" value="Update">
-            </form>
-        
-            {% endif %}
-            <div>
-                <a href="../displaymenu"> Menu</a> &nbsp; &nbsp; &nbsp;
-                <a href = '../checkout'>Checkout</a> &nbsp; &nbsp; &nbsp;
-                <a href="../mycafe">My Cafe</a>
+    {% if submitted %}
+        Your Menu was Submitted Successfully
+    {% else %}
+        <body>
+            <div class="tabs">
+                <li class="tab"><a href="../displaymenu">Go Back To Menu Display Page</a></li>
             </div>
-        </center>
-        {% comment %} ./?edit={{meal.meal_id}} {% endcomment %}
-    </body>
-</html>>
+            <div class="main-page">
+                <div class="main-header-section">
+                    <p class="main-header">Edit Menu Item</p>
+                </div>
+                <div class="form-wrapper"> 
+                    <form action="" method ="POST" enctype = "multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-fields-wrapper">
+                            {% for field in form %}
+                                <div class="form-field-label-wrapper">
+                                    <div class="left-section">
+                                        <div class="form-label-wrapper">
+                                            {{ field.label_tag }}
+                                        </div>
+                                    </div>
+                                    <div class="right-section">
+                                        <div class="form-field-wrapper">
+                                            {{ field.errors }}
+                                            {{ field }}
+                                            {% comment %} {% if field.help_text %}
+                                            <p class="help">{{ field.help_text|safe }}</p>
+                                            {% endif %} {% endcomment %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="submit-button-section">
+                            <button class="submit-button" type="submit"> Update </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </body>
+    {% endif %}
+</html>
