@@ -42,13 +42,50 @@
             overflow: hidden;
         }
 
-        .qr-section {
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            margin-bottom: 12px;
+        #qr-reader {
+            border: 2px solid #aaa !important;
+            margin-bottom: 30px;
             width: 100%;
         }
+
+
+        #qr-reader__dashboard_section_swaplink {
+            display: none;
+        }
+
+        #qr-reader__dashboard_section_csr {
+            display: none !important;
+        }
+
+        #qr-reader > div:first-child {
+            display: none;
+        }
+
+        #qr-reader #qr-reader__scan_region {
+            border-radius: 10px !important;
+        }
+
+        #qr-reader__dashboard {
+            display: none;
+        }
+
+        .main-header-changes {
+            text-transform: none !important;
+            margin-bottom: 30px;
+        }
     </style>
+
+    <script>
+        window.onload = function(){
+            document.getElementById("qr-reader__dashboard_section_csr").children[0].children[0].click();
+            setInterval(function() {
+                const csrChildren = document.getElementById("qr-reader__dashboard_section_csr").children;
+                if (csrChildren.length > 1) {
+                    csrChildren[1].children[0].click();
+                }
+            }, 100);
+        }
+    </script>
 </head>
 <body>
     <div class="tabs">
@@ -58,6 +95,9 @@
     </div>
     <div class="centrize">
         <div class="main-page main-page-changes">
+            <div class="main-header main-header-changes">
+                Scan QR / Enter Order Number 
+            </div>
             <div id="qr-reader" class="qr-section"></div>
             <form action="../checkout_result/" method="POST">
                 {% csrf_token %}
