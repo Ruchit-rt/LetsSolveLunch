@@ -16,5 +16,5 @@ class MealForm(ModelForm):
             'picture': forms.FileInput(),
             'price_staff': forms.NumberInput(attrs={'class': 'text-input'}),
             'price_student': forms.NumberInput(attrs={'class': 'text-input'}),
-            'tags': forms.TextInput(attrs={'class': 'text-input'})
+            'tags': TagWidget(attrs={'class': 'text-input'}),
         }
