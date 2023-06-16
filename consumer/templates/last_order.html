@@ -1,30 +1,82 @@
 <html>
-    <head>
-        <title>Last Order</title>
+    <title>Last Order</title>
+    {% include 'general_styles.html' %}
+    {% include 'consumer_popup.html' %}
+    
+    <script src='https://cdn.tailwindcss.com'></script>
+    <style>
+        .my-account-section {
+            background: #fff;
+            border-radius: 20px;
+            text-align: center;
+            padding: 20px 50px;
+            margin: 20px 0;
+            overflow: auto;
+            border: 2px solid #222222;
+        }
+
+        .loyalty-points {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 70px;
+            font-weight: 400;
+        }
+
+        .left-section {
+            width: 50%;
+            text-align: left;
+            float:left;
+        }
+
+        .right-section {
+            width: 50%;
+            text-align: right;
+            float: right;
+        }
+
+        .inner-section {
+            margin: 20px 0;
+        }
+
+        .view-all-orders-button {
+            background: #020B4A;
+            font-family: Montserrat, sans-serif;
+            font-weight: 100;
+            font-size: 20px;
+            color: white;
+            padding: 5px 20px;
+            font-weight: 500;
+            border-radius: 10px;
+        }
+
+        .view-all-orders-button:hover {
+            opacity: 0.8;
+        }
+
+        .popup-changes {
+            max-height: 530px !important;
+        }
+        </style>
     </head>
     <body>
-        <h1>Order History</h1>
-    
-        <div> 
-            Collect {{reservation.meal.name}} from {{reservation.meal.restaurant.name}} between {{reservation.meal.restaurant.open_time}} and {{reservation.meal.restaurant.end_time}}
-        </br>
-        </br>
-            R Code:
-        </br>
-            {% if reservation.qr %}
-                <img src="{{ reservation.qr.url}}">
-            {% endif %}
+        <div class="popup-background">
+            <div class="main-page">
+                <div class="centrize">
+                    <div class="popup popup-changes" style="padding: 10px 40px !important">
+                        <div style="margin-top: 15px">
+                            <p class="main-header popup-header">QR Code</p>
+                        </div>
+                        <p class="general-text popup-general-text">
+                            Collect {{reservation.meal.name}} from {{reservation.meal.restaurant.name}} between {{reservation.meal.restaurant.open_time}} and {{reservation.meal.restaurant.end_time}}
+                        </p>
+                        {% if reservation.qr %}
+                        <center>
+                            <img src="{{ reservation.qr.url}}">
+                        </center>
+                        {% endif %}
+                        <a href="../myaccount"><button class="select-button green-button">OK</button></a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    
-    <div>
-        <a href="../home">Home</a> &nbsp; &nbsp; &nbsp;
-        <a href="../myaccount">My Account</a>
-    </div>
-
     </body>
 </html>
