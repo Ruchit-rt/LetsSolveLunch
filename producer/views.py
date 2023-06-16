@@ -46,6 +46,7 @@ def edit_menu_view(request):
     form =  MealForm(request.POST or None, instance=old_meal)
     if form.is_valid():
         form.save()
+        
         return redirect('../displaymenu/')
     print(menu_id)
     return render(request, 'edit_menu.html', {'meal':old_meal, 'form': form})
