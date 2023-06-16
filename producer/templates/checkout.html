@@ -87,11 +87,6 @@
                 const csrChildren = document.getElementById("qr-reader__dashboard_section_csr").children;
                 const givenPermissions = csrChildren.length > 1;
                 if (givenPermissions) {
-                    const cameraSelector = document.getElementById("qr-reader__camera_selection")
-                    const cameraOptions = cameraSelector.children
-                    console.log(cameraOptions)
-                    cameraSelector.children = [cameraOptions[cameraOptions.length - 1]]
-                    console.log(cameraSelector.children)
                     document.getElementById("qr-camera-access").style = "display: none;"
                     document.getElementById("qr-reader").style = "";
                     csrChildren[1].children[0].click();
