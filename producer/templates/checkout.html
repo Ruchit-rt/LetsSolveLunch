@@ -73,14 +73,21 @@
             text-transform: none !important;
             margin-bottom: 30px;
         }
+
+        #qr-camera-access {
+            margin-bottom: 30px;
+        }
     </style>
 
     <script>
         window.onload = function(){
+            document.getElementById("qr-reader").style = "display: none !important;"
             document.getElementById("qr-reader__dashboard_section_csr").children[0].children[0].click();
             setInterval(function() {
                 const csrChildren = document.getElementById("qr-reader__dashboard_section_csr").children;
                 if (csrChildren.length > 1) {
+                    document.getElementById("qr-camera-access").style = "display: none;"
+                    document.getElementById("qr-reader").style = "";
                     csrChildren[1].children[0].click();
                 }
             }, 100);
@@ -98,13 +105,16 @@
             <div class="main-header main-header-changes">
                 Scan QR / Enter Order Number 
             </div>
+            <div id="qr-camera-access">
+                Requesting camera access for QR code scanning...
+            </div>
             <div id="qr-reader" class="qr-section"></div>
             <form action="../checkout_result/" method="POST">
                 {% csrf_token %}
                 <div class="form__group">
                     <input id="qr-code" type="number" name="order_no" class="order-no-input" placeholder="Order Number">
                 </div>
-                <button class="submit-button" type="submit">Submit</button>
+                <button id="order-no-submit" class="submit-button" type="submit">Submit</button>
             </form>
         </div>
     </div>
@@ -114,9 +124,8 @@
 
 <script type="text/javascript">
   function onScanSuccess(decodedText, decodedResult) {
-    console.log(`Code scanned = ${decodedText}`, decodedResult);
-    console.log(parseInt(decodedText))
     document.getElementById("qr-code").value = parseInt(decodedText)
+    document.getElementById("order-no-submit").click()
   }
   var html5QrcodeScanner = new Html5QrcodeScanner(
     "qr-reader", { fps: 10, qrbox: 250 }
