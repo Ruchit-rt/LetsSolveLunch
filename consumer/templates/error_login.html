@@ -1,9 +1,20 @@
 <html>
 <head>
+    {% include 'general_styles.html' %}
+    {% include 'consumer_popup.html' %}
     <title>Error Login</title>
 </head>
 <body>
-    <p>Incorrect Email Id. Try again</p>
-    <a href="../../">Back</a>
+    <div class="popup-background">
+        <div class="main-page">
+            <div class="centrize">
+                <div class="popup" style="padding: 10px 40px !important">
+                    <p class="main-header popup-header">Incorrect Email Id</p>
+                    <p class="general-text popup-general-text">Login Error</p>
+                    <a href="../../"><button class="select-button green-button">Try Again</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
