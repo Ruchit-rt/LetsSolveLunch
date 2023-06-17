@@ -71,6 +71,7 @@ MIDDLEWARE = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    'https://lsl-037af3d0252f.herokuapp.com',
     'https://lsl-public.herokuapp.com',
     'https://pacific-coast-78888.herokuapp.com',
     'https://*.127.0.0.1'
