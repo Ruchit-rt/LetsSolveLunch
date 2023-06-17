@@ -19,7 +19,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # collecting static
-# RUN python3 manage.py collectstatic
+RUN python3 manage.py collectstatic
 
 # migrating
 RUN find . -path "*/migrations/*.py" -not -name "__init__.py" -delete

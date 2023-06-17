@@ -45,7 +45,6 @@ class MyCafeConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         print(f'Connection closed with code: {close_code} ')
-        print("LOLOLOL\n\n")
         await self.channel_layer.group_discard('my_group', self.channel_name)
 
 
